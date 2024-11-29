@@ -1,0 +1,344 @@
+<svg xmlns="http://www.w3.org/2000/svg" contentStyleType="text/css"
+     height="806px" preserveAspectRatio="none" style="width:1957px;height:806px;background:#1B1B1B;" version="1.1"
+     viewBox="0 0 1957 806" width="1957px" zoomAndPan="magnify">
+    <defs/>
+    <g>
+        <rect fill="#1B1B1B" height="806" style="stroke:none;stroke-width:1;" width="1957" x="0"
+              y="0"/><!--class UserService-->
+        <g id="elem_UserService">
+            <rect codeLine="3" fill="#313139" height="96.8906" id="UserService" rx="2.5" ry="2.5"
+                  style="stroke:#E7E7E7;stroke-width:0.5;" width="187.0957" x="1580.85" y="7"/>
+            <ellipse cx="1628.3222" cy="23" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <path d="M1631.2909,28.6406 Q1630.7128,28.9375 1630.0722,29.0781 Q1629.4315,29.2344 1628.7284,29.2344 Q1626.2284,29.2344 1624.9003,27.5938 Q1623.5878,25.9375 1623.5878,22.8125 Q1623.5878,19.6875 1624.9003,18.0313 Q1626.2284,16.375 1628.7284,16.375 Q1629.4315,16.375 1630.0722,16.5313 Q1630.7284,16.6875 1631.2909,16.9844 L1631.2909,19.7031 Q1630.6659,19.125 1630.0722,18.8594 Q1629.4784,18.5781 1628.8534,18.5781 Q1627.5097,18.5781 1626.8222,19.6563 Q1626.1347,20.7188 1626.1347,22.8125 Q1626.1347,24.9063 1626.8222,25.9844 Q1627.5097,27.0469 1628.8534,27.0469 Q1629.4784,27.0469 1630.0722,26.7813 Q1630.6659,26.5 1631.2909,25.9219 L1631.2909,28.6406 Z "
+                  fill="#FFFFFF"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="83.6514"
+                  x="1648.8222" y="27.8467">UserService
+            </text>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="1581.85" x2="1766.9457" y1="39" y2="39"/>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="1581.85" x2="1766.9457" y1="47" y2="47"/>
+            <ellipse cx="1591.85" cy="60.6484" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="161.0957"
+                  x="1600.85" y="63.9951">registerUser(userData)
+            </text>
+            <ellipse cx="1591.85" cy="76.9453" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="154.5195"
+                  x="1600.85" y="80.292">loginUser(credentials)
+            </text>
+            <ellipse cx="1591.85" cy="93.2422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="153.46"
+                  x="1600.85" y="96.5889">getUserProfile(userId)
+            </text>
+        </g><!--class ProductService-->
+        <g id="elem_ProductService">
+            <rect codeLine="9" fill="#313139" height="96.8906" id="ProductService" rx="2.5" ry="2.5"
+                  style="stroke:#E7E7E7;stroke-width:0.5;" width="229.3281" x="1212.74" y="354.78"/>
+            <ellipse cx="1270.4285" cy="370.78" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <path d="M1273.3972,376.4206 Q1272.8191,376.7175 1272.1785,376.8581 Q1271.5379,377.0144 1270.8347,377.0144 Q1268.3347,377.0144 1267.0066,375.3738 Q1265.6941,373.7175 1265.6941,370.5925 Q1265.6941,367.4675 1267.0066,365.8113 Q1268.3347,364.155 1270.8347,364.155 Q1271.5379,364.155 1272.1785,364.3113 Q1272.8347,364.4675 1273.3972,364.7644 L1273.3972,367.4831 Q1272.7722,366.905 1272.1785,366.6394 Q1271.5847,366.3581 1270.9597,366.3581 Q1269.616,366.3581 1268.9285,367.4363 Q1268.241,368.4988 1268.241,370.5925 Q1268.241,372.6863 1268.9285,373.7644 Q1269.616,374.8269 1270.9597,374.8269 Q1271.5847,374.8269 1272.1785,374.5613 Q1272.7722,374.28 1273.3972,373.7019 L1273.3972,376.4206 Z "
+                  fill="#FFFFFF"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105.4512"
+                  x="1290.9285" y="375.6267">ProductService
+            </text>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="1213.74" x2="1441.0681" y1="386.78" y2="386.78"/>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="1213.74" x2="1441.0681" y1="394.78" y2="394.78"/>
+            <ellipse cx="1223.74" cy="408.4284" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="203.3281"
+                  x="1232.74" y="411.7751">getProductDetails(productId)
+            </text>
+            <ellipse cx="1223.74" cy="424.7253" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="154.3623"
+                  x="1232.74" y="428.072">listProducts(category)
+            </text>
+            <ellipse cx="1223.74" cy="441.0222" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159.1543"
+                  x="1232.74" y="444.3689">searchProducts(query)
+            </text>
+        </g><!--class OrderService-->
+        <g id="elem_OrderService">
+            <rect codeLine="15" fill="#313139" height="96.8906" id="OrderService" rx="2.5" ry="2.5"
+                  style="stroke:#E7E7E7;stroke-width:0.5;" width="195.1484" x="919.83" y="180.89"/>
+            <ellipse cx="967.268" cy="196.89" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <path d="M970.2367,202.5306 Q969.6586,202.8275 969.018,202.9681 Q968.3774,203.1244 967.6742,203.1244 Q965.1742,203.1244 963.8461,201.4838 Q962.5336,199.8275 962.5336,196.7025 Q962.5336,193.5775 963.8461,191.9213 Q965.1742,190.265 967.6742,190.265 Q968.3774,190.265 969.018,190.4213 Q969.6742,190.5775 970.2367,190.8744 L970.2367,193.5931 Q969.6117,193.015 969.018,192.7494 Q968.4242,192.4681 967.7992,192.4681 Q966.4555,192.4681 965.768,193.5463 Q965.0805,194.6088 965.0805,196.7025 Q965.0805,198.7963 965.768,199.8744 Q966.4555,200.9369 967.7992,200.9369 Q968.4242,200.9369 969.018,200.6713 Q969.6117,200.39 970.2367,199.8119 L970.2367,202.5306 Z "
+                  fill="#FFFFFF"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91.7725"
+                  x="987.768" y="201.7367">OrderService
+            </text>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="920.83" x2="1113.9784" y1="212.89" y2="212.89"/>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="920.83" x2="1113.9784" y1="220.89" y2="220.89"/>
+            <ellipse cx="930.83" cy="234.5384" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="166.708"
+                  x="939.83" y="237.8851">createOrder(orderData)
+            </text>
+            <ellipse cx="930.83" cy="250.8353" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="169.1484"
+                  x="939.83" y="254.182">getOrderStatus(orderId)
+            </text>
+            <ellipse cx="930.83" cy="267.1322" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="146.8975"
+                  x="939.83" y="270.4789">cancelOrder(orderId)
+            </text>
+        </g><!--class PaymentService-->
+        <g id="elem_PaymentService">
+            <rect codeLine="21" fill="#313139" height="80.5938" id="PaymentService" rx="2.5" ry="2.5"
+                  style="stroke:#E7E7E7;stroke-width:0.5;" width="241.8105" x="316.5" y="362.93"/>
+            <ellipse cx="376.3247" cy="378.93" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <path d="M379.2935,384.5706 Q378.7153,384.8675 378.0747,385.0081 Q377.4341,385.1644 376.731,385.1644 Q374.231,385.1644 372.9028,383.5238 Q371.5903,381.8675 371.5903,378.7425 Q371.5903,375.6175 372.9028,373.9613 Q374.231,372.305 376.731,372.305 Q377.4341,372.305 378.0747,372.4613 Q378.731,372.6175 379.2935,372.9144 L379.2935,375.6331 Q378.6685,375.055 378.0747,374.7894 Q377.481,374.5081 376.856,374.5081 Q375.5122,374.5081 374.8247,375.5863 Q374.1372,376.6488 374.1372,378.7425 Q374.1372,380.8363 374.8247,381.9144 Q375.5122,382.9769 376.856,382.9769 Q377.481,382.9769 378.0747,382.7113 Q378.6685,382.43 379.2935,381.8519 L379.2935,384.5706 Z "
+                  fill="#FFFFFF"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113.6611"
+                  x="396.8247" y="383.7767">PaymentService
+            </text>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="317.5" x2="557.3105" y1="394.93" y2="394.93"/>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="317.5" x2="557.3105" y1="402.93" y2="402.93"/>
+            <ellipse cx="327.5" cy="416.5784" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="215.8105"
+                  x="336.5" y="419.9251">processPayment(paymentInfo)
+            </text>
+            <ellipse cx="327.5" cy="432.8753" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="169.3672"
+                  x="336.5" y="436.222">refundPayment(orderId)
+            </text>
+        </g><!--class NotificationService-->
+        <g id="elem_NotificationService">
+            <rect codeLine="26" fill="#313139" height="96.8906" id="NotificationService" rx="2.5" ry="2.5"
+                  style="stroke:#E7E7E7;stroke-width:0.5;" width="335.0664" x="435.87" y="702.56"/>
+            <ellipse cx="533.118" cy="718.56" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <path d="M536.0868,724.2006 Q535.5087,724.4975 534.868,724.6381 Q534.2274,724.7944 533.5243,724.7944 Q531.0243,724.7944 529.6962,723.1538 Q528.3837,721.4975 528.3837,718.3725 Q528.3837,715.2475 529.6962,713.5913 Q531.0243,711.935 533.5243,711.935 Q534.2274,711.935 534.868,712.0913 Q535.5243,712.2475 536.0868,712.5444 L536.0868,715.2631 Q535.4618,714.685 534.868,714.4194 Q534.2743,714.1381 533.6493,714.1381 Q532.3055,714.1381 531.618,715.2163 Q530.9305,716.2788 530.9305,718.3725 Q530.9305,720.4663 531.618,721.5444 Q532.3055,722.6069 533.6493,722.6069 Q534.2743,722.6069 534.868,722.3413 Q535.4618,722.06 536.0868,721.4819 L536.0868,724.2006 Z "
+                  fill="#FFFFFF"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="132.0703"
+                  x="553.618" y="723.4067">NotificationService
+            </text>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="436.87" x2="769.9364" y1="734.56" y2="734.56"/>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="436.87" x2="769.9364" y1="742.56" y2="742.56"/>
+            <ellipse cx="446.87" cy="756.2084" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="309.0664"
+                  x="455.87" y="759.5551">sendOrderConfirmation(email, orderDetails)
+            </text>
+            <ellipse cx="446.87" cy="772.5053" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="269.6025"
+                  x="455.87" y="775.852">sendStatusUpdate(email, orderStatus)
+            </text>
+            <ellipse cx="446.87" cy="788.8022" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="272.2002"
+                  x="455.87" y="792.1489">sendUserNotification(userId, message)
+            </text>
+        </g><!--class Database-->
+        <g id="elem_Database">
+            <rect codeLine="32" fill="#313139" height="96.8906" id="Database" rx="2.5" ry="2.5"
+                  style="stroke:#E7E7E7;stroke-width:0.5;" width="159.7793" x="1432.51" y="528.67"/>
+            <ellipse cx="1474.9503" cy="544.67" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <path d="M1477.9191,550.3106 Q1477.341,550.6075 1476.7003,550.7481 Q1476.0597,550.9044 1475.3566,550.9044 Q1472.8566,550.9044 1471.5285,549.2638 Q1470.216,547.6075 1470.216,544.4825 Q1470.216,541.3575 1471.5285,539.7013 Q1472.8566,538.045 1475.3566,538.045 Q1476.0597,538.045 1476.7003,538.2013 Q1477.3566,538.3575 1477.9191,538.6544 L1477.9191,541.3731 Q1477.2941,540.795 1476.7003,540.5294 Q1476.1066,540.2481 1475.4816,540.2481 Q1474.1378,540.2481 1473.4503,541.3263 Q1472.7628,542.3888 1472.7628,544.4825 Q1472.7628,546.5763 1473.4503,547.6544 Q1474.1378,548.7169 1475.4816,548.7169 Q1476.1066,548.7169 1476.7003,548.4513 Q1477.2941,548.17 1477.9191,547.5919 L1477.9191,550.3106 Z "
+                  fill="#FFFFFF"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66.8008"
+                  x="1495.0482" y="549.5167">Database
+            </text>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="1433.51" x2="1591.2893" y1="560.67" y2="560.67"/>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="1433.51" x2="1591.2893" y1="568.67" y2="568.67"/>
+            <ellipse cx="1443.51" cy="582.3184" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111.9795"
+                  x="1452.51" y="585.6651">storeUserData()
+            </text>
+            <ellipse cx="1443.51" cy="598.6153" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="133.7793"
+                  x="1452.51" y="601.962">storeProductData()
+            </text>
+            <ellipse cx="1443.51" cy="614.9122" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120.1006"
+                  x="1452.51" y="618.2589">storeOrderData()
+            </text>
+        </g><!--class MessageQueue-->
+        <g id="elem_MessageQueue">
+            <rect codeLine="38" fill="#313139" height="80.5938" id="MessageQueue" rx="2.5" ry="2.5"
+                  style="stroke:#E7E7E7;stroke-width:0.5;" width="222.5469" x="492.13" y="536.82"/>
+            <ellipse cx="545.4777" cy="552.82" fill="#2E5233" rx="11" ry="11" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <path d="M548.4464,558.4606 Q547.8683,558.7575 547.2277,558.8981 Q546.587,559.0544 545.8839,559.0544 Q543.3839,559.0544 542.0558,557.4138 Q540.7433,555.7575 540.7433,552.6325 Q540.7433,549.5075 542.0558,547.8513 Q543.3839,546.195 545.8839,546.195 Q546.587,546.195 547.2277,546.3513 Q547.8839,546.5075 548.4464,546.8044 L548.4464,549.5231 Q547.8214,548.945 547.2277,548.6794 Q546.6339,548.3981 546.0089,548.3981 Q544.6652,548.3981 543.9777,549.4763 Q543.2902,550.5388 543.2902,552.6325 Q543.2902,554.7263 543.9777,555.8044 Q544.6652,556.8669 546.0089,556.8669 Q546.6339,556.8669 547.2277,556.6013 Q547.8214,556.32 548.4464,555.7419 L548.4464,558.4606 Z "
+                  fill="#FFFFFF"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107.3516"
+                  x="565.9777" y="557.6667">MessageQueue
+            </text>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="493.13" x2="713.6769" y1="568.82" y2="568.82"/>
+            <line style="stroke:#E7E7E7;stroke-width:0.5;" x1="493.13" x2="713.6769" y1="576.82" y2="576.82"/>
+            <ellipse cx="503.13" cy="590.4684" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="196.5469"
+                  x="512.13" y="593.8151">enqueueMessage(message)
+            </text>
+            <ellipse cx="503.13" cy="606.7653" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="133.6426"
+                  x="512.13" y="610.112">dequeueMessage()
+            </text>
+        </g><!--link UserService to OrderService-->
+        <g id="link_UserService_OrderService">
+            <path codeLine="44" d="M1580.62,80.98 C1457.06,113.31 1246.5746,168.3712 1121.0246,201.2212 " fill="none"
+                  id="UserService-to-OrderService" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="1115.22,202.74,1124.9394,204.3316,1120.0572,201.4744,1122.9144,196.5921,1115.22,202.74"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="114.3911"
+                  x="1366.4" y="146.9569">Request user info
+            </text>
+        </g><!--link OrderService to ProductService-->
+        <g id="link_OrderService_ProductService">
+            <path codeLine="45"
+                  d="M1115.42,242.9 C1166.18,253.43 1226.72,272.68 1271.4,307.78 C1286.84,319.91 1296.1012,332.2634 1305.0312,349.0434 "
+                  fill="none" id="OrderService-to-ProductService" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="1307.85,354.34,1307.1529,344.5158,1305.501,349.9261,1300.0907,348.2742,1307.85,354.34"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="155.251"
+                  x="1288.4" y="320.8469">Request product details
+            </text>
+        </g><!--link ProductService to OrderService-->
+        <g id="link_ProductService_OrderService">
+            <path codeLine="49"
+                  d="M1212.42,363.44 C1203.29,360.47 1194.2,357.55 1185.4,354.78 C1140.74,340.69 1122.48,352.03 1084.4,324.78 C1067.4,312.61 1056.4143,299.7808 1045.4843,282.8508 "
+                  fill="none" id="ProductService-to-OrderService" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="1042.23,277.81,1043.751,287.5407,1044.9419,282.0106,1050.472,283.2016,1042.23,277.81"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="177.9375"
+                  x="1085.4" y="320.8469">Provide product availability
+            </text>
+        </g><!--link OrderService to PaymentService-->
+        <g id="link_OrderService_PaymentService">
+            <path codeLine="46"
+                  d="M919.49,235.69 C754.8,245.7 436.93,269.75 403.4,307.78 C389.92,323.07 392.8939,338.8944 403.3239,357.2344 "
+                  fill="none" id="OrderService-to-PaymentService" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="406.29,362.45,405.3179,352.6492,403.8182,358.1037,398.3638,356.604,406.29,362.45"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="107.4976"
+                  x="404.4" y="320.8469">Initiate payment
+            </text>
+        </g><!--link PaymentService to OrderService-->
+        <g id="link_PaymentService_OrderService">
+            <path codeLine="50"
+                  d="M475.1,362.64 C496.02,343.05 523.59,320.86 552.4,307.78 C671.26,253.8 816.5179,237.3272 913.6679,232.3472 "
+                  fill="none" id="PaymentService-to-OrderService" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="919.66,232.04,910.467,228.506,914.6666,232.296,910.8766,236.4955,919.66,232.04"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="157.5869"
+                  x="553.4" y="320.8469">Confirm payment status
+            </text>
+        </g><!--link OrderService to NotificationService-->
+        <g id="link_OrderService_NotificationService">
+            <path codeLine="47"
+                  d="M919.46,231.49 C793.74,235.42 570.14,250.73 388.4,307.78 C345.72,321.18 338.34,332.76 299.4,354.78 C204.48,408.46 142.98,386.69 89.4,481.67 C6,629.51 249.5628,698.0167 429.5828,728.2367 "
+                  fill="none" id="OrderService-to-NotificationService" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="435.5,729.23,427.2864,723.7952,430.569,728.4022,425.962,731.6848,435.5,729.23"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="158.3042"
+                  x="90.4" y="494.7369">Send order confirmation
+            </text>
+        </g><!--link UserService to NotificationService-->
+        <g id="link_UserService_NotificationService">
+            <path codeLine="48"
+                  d="M1733.97,104.08 C1766.17,135.45 1799.4,179.63 1799.4,228.33 C1799.4,228.33 1799.4,228.33 1799.4,578.11 C1799.4,680.74 1106.5529,726.6177 777.2729,742.6777 "
+                  fill="none" id="UserService-to-NotificationService" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="771.28,742.97,780.4642,746.5268,776.2741,742.7264,780.0745,738.5363,771.28,742.97"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="149.2397"
+                  x="1800.4" y="407.7869">Send user notifications
+            </text>
+        </g><!--link UserService to Database-->
+        <g id="link_UserService_Database">
+            <path codeLine="53"
+                  d="M1678.35,104.34 C1682.7,181.39 1683.05,335.91 1629.4,451.67 C1616,480.59 1597.5427,503.009 1575.6227,524.109 "
+                  fill="none" id="UserService-to-Database" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="1571.3,528.27,1580.5581,524.9103,1574.9023,524.8025,1575.0101,519.1467,1571.3,528.27"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="100.5469"
+                  x="1670.4" y="320.8469">Store user data
+            </text>
+        </g><!--link ProductService to Database-->
+        <g id="link_ProductService_Database">
+            <path codeLine="54"
+                  d="M1337.64,452.11 C1342.94,468.3 1350.81,485.57 1362.4,498.67 C1381.15,519.85 1401.6584,533.4687 1426.6984,545.4587 "
+                  fill="none" id="ProductService-to-Database" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="1432.11,548.05,1425.7201,540.5554,1427.6003,545.8906,1422.2651,547.7708,1432.11,548.05"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="122.478"
+                  x="1363.4" y="494.7369">Store product data
+            </text>
+        </g><!--link OrderService to Database-->
+        <g id="link_OrderService_Database">
+            <path codeLine="55"
+                  d="M1115.25,235.38 C1228.41,243.28 1405.23,262.63 1452.4,307.78 C1512.24,365.05 1518.7445,461.9438 1516.5845,522.3138 "
+                  fill="none" id="OrderService-to-Database" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="1516.37,528.31,1520.6893,519.4588,1516.5488,523.3132,1512.6944,519.1727,1516.37,528.31"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="107.085"
+                  x="1513.4" y="407.7869">Store order data
+            </text>
+        </g><!--link OrderService to MessageQueue-->
+        <g id="link_OrderService_MessageQueue">
+            <path codeLine="58"
+                  d="M919.43,258.17 C867.04,277.58 805.11,308.45 764.4,354.78 C719.81,405.53 756.13,444.77 715.4,498.67 C704.57,513 695.1521,522.1206 680.4421,532.8206 "
+                  fill="none" id="OrderService-to-MessageQueue" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="675.59,536.35,685.2211,534.2906,679.6334,533.4088,680.5152,527.8211,675.59,536.35"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="208.7998"
+                  x="765.4" y="407.7869">Send order processing message
+            </text>
+        </g><!--link MessageQueue to OrderService-->
+        <g id="link_MessageQueue_OrderService">
+            <path codeLine="63"
+                  d="M714.92,568.97 C799.79,557.38 912.83,527.59 978.4,451.67 C1019.85,403.68 1024.6587,333.434 1022.4487,284.134 "
+                  fill="none" id="MessageQueue-to-OrderService" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="1022.18,278.14,1018.5871,287.3101,1022.4039,283.135,1026.579,286.9518,1022.18,278.14"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="158.1836"
+                  x="1018.4" y="407.7869">Process order messages
+            </text>
+        </g><!--link PaymentService to MessageQueue-->
+        <g id="link_PaymentService_MessageQueue">
+            <path codeLine="59"
+                  d="M442.65,443.68 C446.69,461.96 453.83,483.03 466.4,498.67 C478.39,513.57 488.983,522.9225 505.433,533.2825 "
+                  fill="none" id="PaymentService-to-MessageQueue" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="510.51,536.48,505.0261,528.2991,506.2791,533.8155,500.7628,535.0685,510.51,536.48"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="243.877"
+                  x="467.4" y="494.7369">Send payment confirmation message
+            </text>
+        </g><!--link MessageQueue to PaymentService-->
+        <g id="link_MessageQueue_PaymentService">
+            <path codeLine="64"
+                  d="M491.69,565.49 C404.16,554.58 292.63,534.07 264.4,498.67 C239.76,467.77 266.9026,447.49 310.3426,432.39 "
+                  fill="none" id="MessageQueue-to-PaymentService" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="316.01,430.42,306.1956,429.5968,311.2872,432.0617,308.8223,437.1533,316.01,430.42"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="181.2002"
+                  x="265.4" y="494.7369">Process payment messages
+            </text>
+        </g><!--link NotificationService to MessageQueue-->
+        <g id="link_NotificationService_MessageQueue">
+            <path codeLine="60"
+                  d="M664.32,702.11 C672.08,693.17 678.88,683.24 683.4,672.56 C691.95,652.38 685.3129,637.4509 669.0329,621.7809 "
+                  fill="none" id="NotificationService-to-MessageQueue" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="664.71,617.62,668.4204,626.7432,668.3124,621.0874,673.9682,620.9794,664.71,617.62"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="172.5356"
+                  x="686.4" y="668.6269">Send notification message
+            </text>
+        </g><!--link MessageQueue to NotificationService-->
+        <g id="link_MessageQueue_NotificationService">
+            <path codeLine="65"
+                  d="M512.51,617.87 C498.43,628.08 485.8,640.54 477.4,655.56 C467.33,673.57 469.6825,685.186 484.3125,698.236 "
+                  fill="none" id="MessageQueue-to-NotificationService" style="stroke:#E7E7E7;stroke-width:1;"/>
+            <polygon fill="#E7E7E7"
+                     points="488.79,702.23,484.7364,693.254,485.0587,698.9017,479.4111,699.2241,488.79,702.23"
+                     style="stroke:#E7E7E7;stroke-width:1;"/>
+            <text fill="#FFFFFF" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="196.3965"
+                  x="478.4" y="668.6269">Process notification messages
+            </text>
+        </g><!--SRC=[ZLHjRjD04FtlKopvWoFQ2_032RKLYWGjjEG0MtiSLdBMgNSTAK9818GGeW89zI0jgccYDk4Awninwrqx_af4eZZAldap-sRUv94F0UD0JeyEtZu_Vl7oY7WX5S9nDWT30V4Pn5Fc0Ndl47mzYM74X8HOGsw2ZqCgQTzWOJHYF0Uy67pWaj5GM6m4KYEluoXW8UJCWTztFbJB8UWddcnKHAO53a5I5WftOdvglgcBDx8XmlMeX54KpomcWCRUknAzI413jR8diT-IYG8mJuwuaNvMPEA534LIcGW3btVnAFSWh13RAkbiZBrf54HD7WXXGNTYlWSyYFf5uuE4-mNUdVeuaYnWs04MyKP-0TpFRtKGyO35upp6XJ4sT8yOXQQx_Ksy4JYS-DYAMgW1Af5wjDNYThvxP8oQw0WQzzJDFATYSpaPnJ2qPdBxbSDYyitpas8cRYFrArFmJG99cHxuXVvf8RUyKmxwK0FpT8-9-gNkrBLQg0UrLhSgLSjiddrIlzKY-qdmC5L_r6tscMHpbMOVy_CvnZ-eXLDTcltzPtLxFIMzKrrGIA9RH1WEkEVKGZIdiGaLblK-ySsqkhXrVo5tm1ckeWHYNTL1wd8ECizmjcRanAlufjSIkOkV2-ML0BnrGs1Ndp1aodme5TCf2gRdB6HoXWdgAhiIMASNged8NTlRFLwLuao9ka7q3h4bGVXQhTGg-vvzQSakZQorQbyQiRWmj5DZExwSPqvfpQLDCDCmuV-ZP9rzpIsQebylin_QiMjytsJVy6Y5OSjsrTeIrMrW_wSO7nMxtJcBpWp58AfMscJfij3ML5KxRLBeVboXkB_ukTVYi1EfkiykzVYm7zYMhLljrEfiCQIMRXjXYwAVMiJs1XRKeWCxo5isgSZG9Lpq_W40]-->
+    </g>
+</svg>
