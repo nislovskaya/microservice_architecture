@@ -2,10 +2,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: health-check-deployment
+  namespace: m
   labels:
     app: health-check
 spec:
   replicas: 2
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   selector:
     matchLabels:
       app: health-check
@@ -23,7 +29,7 @@ spec:
             httpGet:
               path: /health
               port: 8000
-            initialDelaySeconds: 15
+            initialDelaySeconds: 5
             periodSeconds: 30
           readinessProbe:
             httpGet:

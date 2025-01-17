@@ -4,13 +4,21 @@ metadata:
   name: health-check-ingress
   namespace: m
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /health/
 spec:
   ingressClassName: nginx
   rules:
     - host: arch.homework
       http:
         paths:
+          - path: /otusapp/nislovskaya/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: health-check-service
+                port:
+                  number: 80
           - path: /health
             pathType: Prefix
             backend:
