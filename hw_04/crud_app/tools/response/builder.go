@@ -2,58 +2,70 @@ package response
 
 import (
 	jsoniter "github.com/json-iterator/go"
+	"github.com/nislovskaya/microservice_architecture/hw_04/crud_app/model"
 	"github.com/sirupsen/logrus"
 	"net/http"
 )
 
 type response struct {
-	writer     http.ResponseWriter
-	logger     *logrus.Entry
-	statusCode int
+	writer http.ResponseWriter
+	logger *logrus.Entry
 }
 
-type Builder interface {
-	Ok() Builder
-	Created() Builder
-	BadRequest() Builder
-	InternalServerError() Builder
+type Response interface {
+	Ok(data interface{})
+	Created(data interface{})
+	NoContent()
 
-	JSON(data interface{})
+	BadRequest(message string)
+	NotFound(message string)
+	InternalServerError(message string)
 }
 
-func New(w http.ResponseWriter, logger *logrus.Entry) Builder {
+func New(w http.ResponseWriter, logger *logrus.Entry) Response {
 	return &response{
 		writer: w,
 		logger: logger,
 	}
 }
 
-func (r *response) Ok() Builder {
-	r.statusCode = http.StatusOK
-	return r
+func (r *response) Ok(data interface{}) {
+	r.json(http.StatusOK, data)
 }
 
-func (r *response) Created() Builder {
-	r.statusCode = http.StatusCreated
-	return r
+func (r *response) Created(data interface{}) {
+	r.json(http.StatusCreated, data)
 }
 
-func (r *response) BadRequest() Builder {
-	r.statusCode = http.StatusBadRequest
-	return r
+func (r *response) NoContent() {
+	r.json(http.StatusNoContent, nil)
 }
 
-func (r *response) InternalServerError() Builder {
-	r.statusCode = http.StatusInternalServerError
-	return r
+func (r *response) BadRequest(message string) {
+	r.json(http.StatusBadRequest, &model.Error{
+		Code:    http.StatusBadRequest,
+		Message: message,
+	})
 }
 
-func (r *response) JSON(data interface{}) {
+func (r *response) NotFound(message string) {
+	r.json(http.StatusNotFound, &model.Error{
+		Code:    http.StatusNotFound,
+		Message: message,
+	})
+}
+
+func (r *response) InternalServerError(message string) {
+	r.json(http.StatusInternalServerError, &model.Error{
+		Code:    http.StatusInternalServerError,
+		Message: message,
+	})
+}
+
+func (r *response) json(statusCode int, data interface{}) {
 	r.writer.Header().Set("Content-Type", "application/json")
-	r.writer.WriteHeader(r.statusCode)
-	err := jsoniter.NewEncoder(r.writer).Encode(data)
-	if err != nil {
+	r.writer.WriteHeader(statusCode)
+	if err := jsoniter.NewEncoder(r.writer).Encode(data); err != nil {
 		r.logger.WithError(err).Error("failed to encode json")
 	}
-	r.logger.Info("JSON data sent successfully")
 }
