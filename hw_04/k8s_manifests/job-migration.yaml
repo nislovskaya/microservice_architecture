@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration
+  namespace: m
+spec:
+  template:
+    spec:
+      containers:
+        - name: migrator
+          image: postgres:latest
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - |
+              psql postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME -f /migrations/dump.sql
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: db-secret
+          volumeMounts:
+            - name: migrations-volume
+              mountPath: /migrations
+      volumes:
+        - name: migrations-volume
+          configMap:
+            name: migrations-config
+      restartPolicy: OnFailure
