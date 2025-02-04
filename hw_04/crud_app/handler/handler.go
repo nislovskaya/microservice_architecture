@@ -24,6 +24,8 @@ func New(opts ...Option) *Handler {
 func (h *Handler) InitRouter() *mux.Router {
 	router := mux.NewRouter()
 
+	router.HandleFunc("/health", h.CheckHealth)
+
 	router.HandleFunc("/user", h.CreateUser).Methods("POST")
 	router.HandleFunc("/user/{userId}", h.GetUser).Methods("GET")
 	router.HandleFunc("/user/{userId}", h.UpdateUser).Methods("PUT")
