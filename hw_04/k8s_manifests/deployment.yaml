@@ -23,15 +23,15 @@ spec:
                 name: app-config
             - secretRef:
                 name: db-secret
-#          livenessProbe:
-#            httpGet:
-#              path: /health
-#              port: 8000
-#            initialDelaySeconds: 5
-#            periodSeconds: 30
-#          readinessProbe:
-#            httpGet:
-#              path: /health
-#              port: 8000
-#            initialDelaySeconds: 5
-#            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
