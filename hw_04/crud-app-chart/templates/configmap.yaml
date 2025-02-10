@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: m
+data:
+  SERVER_PORT: "8080"
+  DB_HOST: "postgresql"
+  DB_PORT: "5432"
+  DB_NAME: "users"

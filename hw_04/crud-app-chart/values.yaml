@@ -1,0 +1,12 @@
+auth:
+  username: root
+  postgresPassword: pass
+  password: pass
+  database: users
+
+primary:
+  persistence:
+    enabled: true
+    size: 1Gi
+    extendedConfiguration: |
+      ssl = off
