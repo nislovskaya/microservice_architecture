@@ -4,7 +4,7 @@ metadata:
   name: auth-app-config
   namespace: m
 data:
-  SERVER_PORT: "8081"
+  SERVER_PORT: "8080"
   DB_HOST: "auth-postgresql"
   DB_PORT: "5432"
   DB_NAME: "users"
@@ -15,20 +15,21 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: crud-app-config
+  name: jwt-config
   namespace: m
 data:
-  SERVER_PORT: "8080"
-  DB_HOST: "crud-postgresql"
-  DB_PORT: "5432"
-  DB_NAME: "users"
+  SERVER_PORT: "8081"
+  JWT_SECRET: "secret"
 
 ---
 
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: jwt-config
+  name: user-app-config
   namespace: m
 data:
-  JWT_SECRET: "secret"
+  SERVER_PORT: "8082"
+  DB_HOST: "user-postgresql"
+  DB_PORT: "5432"
+  DB_NAME: "users"

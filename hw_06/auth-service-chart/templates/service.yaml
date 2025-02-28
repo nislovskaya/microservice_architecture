@@ -9,21 +9,6 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8081
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: crud-service
-  namespace: m
-spec:
-  selector:
-    app: crud-app
-  ports:
-    - protocol: TCP
-      port: 80
       targetPort: 8080
 
 ---
@@ -39,4 +24,19 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8088
+      targetPort: 8081
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: m
+spec:
+  selector:
+    app: user-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8082

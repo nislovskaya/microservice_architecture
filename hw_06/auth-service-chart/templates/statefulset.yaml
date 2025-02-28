@@ -32,32 +32,32 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
-            storage: 10Gi
+            storage: 2Gi
 
 ---
 
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: crud-postgresql
+  name: user-postgresql
   namespace: m
 spec:
-  serviceName: "crud-postgresql"
+  serviceName: "user-postgresql"
   replicas: 1
   selector:
     matchLabels:
-      app: crud-postgresql
+      app: user-postgresql
   template:
     metadata:
       labels:
-        app: crud-postgresql
+        app: user-postgresql
     spec:
       containers:
         - name: postgres
           image: postgres:latest
           envFrom:
             - secretRef:
-                name: crud-db-secret
+                name: user-db-secret
           ports:
             - containerPort: 5432
           volumeMounts:
@@ -70,4 +70,4 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
-            storage: 10Gi
+            storage: 2Gi

@@ -16,11 +16,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: crud-postgresql
+  name: user-postgresql
   namespace: m
 spec:
   selector:
-    app: crud-postgresql
+    app: user-postgresql
   ports:
     - protocol: TCP
       port: 5432

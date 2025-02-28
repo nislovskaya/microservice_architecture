@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
         - name: app
-          image: nislovskaya/hw_06:latest
+          image: nislovskaya/hw_06-auth:latest
           ports:
-            - containerPort: 8081
+            - containerPort: 8080
           envFrom:
             - configMapRef:
                 name: auth-app-config
@@ -26,55 +26,47 @@ spec:
           livenessProbe:
             httpGet:
               path: /health
-              port: 8081
-            initialDelaySeconds: 5
-            periodSeconds: 30
+              port: 8080
           readinessProbe:
             httpGet:
               path: /health
-              port: 8081
-            initialDelaySeconds: 5
-            periodSeconds: 10
+              port: 8080
 
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: crud-app
+  name: user-app
   namespace: m
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: crud-app
+      app: user-app
   template:
     metadata:
       labels:
-        app: crud-app
+        app: user-app
     spec:
       containers:
         - name: app
-          image: nislovskaya/hw_04:latest
+          image: nislovskaya/hw_06-user:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8082
           envFrom:
             - configMapRef:
-                name: crud-app-config
+                name: user-app-config
             - secretRef:
-                name: crud-db-secret
+                name: user-db-secret
           livenessProbe:
             httpGet:
               path: /health
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 30
+              port: 8082
           readinessProbe:
             httpGet:
               path: /health
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
+              port: 8082
 
 ---
 
@@ -82,8 +74,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jwt-validator
+  namespace: m
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: jwt-validator
@@ -96,7 +89,7 @@ spec:
         - name: jwt-validator
           image: nislovskaya/hw_06-jwt:latest
           ports:
-            - containerPort: 8088
+            - containerPort: 8081
           envFrom:
             - configMapRef:
                 name: jwt-config
@@ -105,12 +98,8 @@ spec:
           livenessProbe:
             httpGet:
               path: /health
-              port: 8088
-            initialDelaySeconds: 5
-            periodSeconds: 30
+              port: 8081
           readinessProbe:
             httpGet:
               path: /health
-              port: 8088
-            initialDelaySeconds: 5
-            periodSeconds: 10
+              port: 8081

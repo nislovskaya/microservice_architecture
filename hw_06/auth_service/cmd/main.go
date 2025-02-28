@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/gorilla/mux"
 	"github.com/nislovskaya/golang_tools/config"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/handler"
@@ -11,7 +13,6 @@ import (
 	_ "gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	_ "gorm.io/gorm"
-	"net/http"
 )
 
 var logger = logrus.NewEntry(logrus.New())
@@ -24,7 +25,7 @@ func main() {
 
 	logger.Info("Server is started...")
 
-	logger.Fatal(http.ListenAndServe(":8081", router))
+	logger.Fatal(http.ListenAndServe(":8080", router))
 }
 
 func getRouter(db *gorm.DB, secretKey string) *mux.Router {

@@ -1,13 +1,14 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/gorilla/mux"
 	"github.com/nislovskaya/golang_tools/config"
 	"github.com/nislovskaya/microservice_architecture/hw_06/jwt_verifier/handler"
 	"github.com/nislovskaya/microservice_architecture/hw_06/jwt_verifier/service"
 	"github.com/nislovskaya/microservice_architecture/hw_06/jwt_verifier/service/validation"
 	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 var logger = logrus.NewEntry(logrus.New())
@@ -19,9 +20,7 @@ func main() {
 
 	logger.Info("Server is started...")
 
-	logger.Info("Server is started...")
-
-	logger.Fatal(http.ListenAndServe(":8088", router))
+	logger.Fatal(http.ListenAndServe(":8081", router))
 }
 
 func getRouter(secretKey string) *mux.Router {

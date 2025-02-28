@@ -2,10 +2,11 @@ package handler
 
 import (
 	"fmt"
-	"github.com/nislovskaya/golang_tools/response"
-	"github.com/nislovskaya/microservice_architecture/hw_06/jwt_verifier/model"
 	"net/http"
 	"strings"
+
+	"github.com/nislovskaya/golang_tools/response"
+	"github.com/nislovskaya/microservice_architecture/hw_06/jwt_verifier/model"
 )
 
 func (h *Handler) Validate(w http.ResponseWriter, r *http.Request) {
@@ -18,15 +19,15 @@ func (h *Handler) Validate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	token = strings.Replace(token, "Bearer ", "", 1)
-	_, err := h.Service.ValidateToken(token)
+	claims, err := h.Service.ValidateToken(token)
 	if err != nil {
 		resp.Unauthorized(err.Error())
 		return
 	}
 
-	message := fmt.Sprintf("Token is valid")
+	userID := fmt.Sprintf("%d", claims.UserID)
+	w.Header().Set("x-user-id", userID)
 
-	h.Logger.Infof(message)
-
-	resp.Ok(&model.Message{Message: message})
+	h.Logger.Infof("Token validated for user: %s", userID)
+	resp.Ok(&model.Message{Message: "Token is valid"})
 }

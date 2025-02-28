@@ -32,7 +32,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: crud-db-migration
+  name: user-db-migration
   namespace: m
 spec:
   template:
@@ -46,14 +46,14 @@ spec:
               psql postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME -f /migrations/dump.sql
           envFrom:
             - configMapRef:
-                name: crud-app-config
+                name: user-app-config
             - secretRef:
-                name: crud-db-secret
+                name: user-db-secret
           volumeMounts:
             - name: migrations-volume
               mountPath: /migrations
       volumes:
         - name: migrations-volume
           configMap:
-            name: crud-migrations-config
+            name: user-migrations-config
       restartPolicy: OnFailure
