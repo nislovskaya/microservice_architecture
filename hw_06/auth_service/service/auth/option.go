@@ -19,7 +19,6 @@ func WithRepository(repo repository.Repository) Option {
 	}
 }
 
-// TODO
 func WithSecretKey(secretKey string) Option {
 	return func(a *auth) {
 		a.secretKey = secretKey

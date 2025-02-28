@@ -3,9 +3,9 @@ package handler
 import (
 	"errors"
 	"fmt"
+	"github.com/nislovskaya/golang_tools/response"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/httperrors"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/model"
-	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/tools/response"
 	"net/http"
 )
 

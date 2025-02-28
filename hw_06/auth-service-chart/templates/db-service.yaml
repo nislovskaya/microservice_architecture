@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-postgresql
+  namespace: m
+spec:
+  selector:
+    app: auth-postgresql
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: crud-postgresql
+  namespace: m
+spec:
+  selector:
+    app: crud-postgresql
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

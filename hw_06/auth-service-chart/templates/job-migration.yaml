@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: db-migration
+  name: auth-db-migration
   namespace: m
 spec:
   template:
@@ -15,14 +15,45 @@ spec:
               psql postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME -f /migrations/dump.sql
           envFrom:
             - configMapRef:
-                name: app-config
+                name: auth-app-config
             - secretRef:
-                name: db-secret
+                name: auth-db-secret
           volumeMounts:
             - name: migrations-volume
               mountPath: /migrations
       volumes:
         - name: migrations-volume
           configMap:
-            name: migrations-config
+            name: auth-migrations-config
+      restartPolicy: OnFailure
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: crud-db-migration
+  namespace: m
+spec:
+  template:
+    spec:
+      containers:
+        - name: migrator
+          image: postgres:latest
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - |
+              psql postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME -f /migrations/dump.sql
+          envFrom:
+            - configMapRef:
+                name: crud-app-config
+            - secretRef:
+                name: crud-db-secret
+          volumeMounts:
+            - name: migrations-volume
+              mountPath: /migrations
+      volumes:
+        - name: migrations-volume
+          configMap:
+            name: crud-migrations-config
       restartPolicy: OnFailure

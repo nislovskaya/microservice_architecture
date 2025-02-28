@@ -26,6 +26,19 @@ services:
       - postgresql
       - pgadmin
 
+  jwt-app:
+    container_name: jwt_verifier
+    build:
+      context: ../jwt_verifier
+      dockerfile: ./Dockerfile
+    ports:
+      - "8088:8088"
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+    restart: always
+    depends_on:
+      - app
+
   postgresql:
     image: postgres:latest
     container_name: postgresql

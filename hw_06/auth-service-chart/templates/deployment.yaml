@@ -20,9 +20,9 @@ spec:
             - containerPort: 8081
           envFrom:
             - configMapRef:
-                name: app-config
+                name: auth-app-config
             - secretRef:
-                name: db-secret
+                name: auth-db-secret
           livenessProbe:
             httpGet:
               path: /health
@@ -33,5 +33,84 @@ spec:
             httpGet:
               path: /health
               port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crud-app
+  namespace: m
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: crud-app
+  template:
+    metadata:
+      labels:
+        app: crud-app
+    spec:
+      containers:
+        - name: app
+          image: nislovskaya/hw_04:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: crud-app-config
+            - secretRef:
+                name: crud-db-secret
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jwt-validator
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jwt-validator
+  template:
+    metadata:
+      labels:
+        app: jwt-validator
+    spec:
+      containers:
+        - name: jwt-validator
+          image: nislovskaya/hw_06-jwt:latest
+          ports:
+            - containerPort: 8088
+          envFrom:
+            - configMapRef:
+                name: jwt-config
+            - secretRef:
+                name: jwt-secret
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8088
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8088
             initialDelaySeconds: 5
             periodSeconds: 10

@@ -9,10 +9,58 @@ spec:
     - host: arch.homework
       http:
         paths:
-          - path: /
+          - path: /register
             pathType: Prefix
             backend:
               service:
                 name: auth-service
+                port:
+                  number: 80
+          - path: /login
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-service
+                port:
+                  number: 80
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: crud-ingress
+  namespace: m
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: arch.homework
+      http:
+        paths:
+          - path: /user
+            pathType: Prefix
+            backend:
+              service:
+                name: crud-service
+                port:
+                  number: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jwt-ingress
+  namespace: m
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: arch.homework
+      http:
+        paths:
+          - path: /validate
+            pathType: Prefix
+            backend:
+              service:
+                name: jwt-validator
                 port:
                   number: 80

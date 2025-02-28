@@ -2,18 +2,19 @@ TAG=latest
 NAME=auth_service
 COMMON_ENV=./.env
 
-build:
-	@docker compose --env-file $(COMMON_ENV) build
+app-build:
+	@docker compose --env-file $(COMMON_ENV) build app
 
-db:
-	@-docker compose --env-file $(COMMON_ENV) up -d postgresql
+app-up:
+	@docker compose --env-file $(COMMON_ENV) up -d app
 
-app: build
-	@-docker compose --env-file $(COMMON_ENV) up -d app
+jwt-build:
+	@docker compose --env-file $(COMMON_ENV) build jwt-app
 
-up: build db app
+jwt-up:
+	@docker compose --env-file $(COMMON_ENV) up -d jwt-app
 
-run: db app
+up: app-build jwt-build app-up jwt-up
 
 clean:
 	@docker compose --env-file $(COMMON_ENV) down -v --remove-orphans

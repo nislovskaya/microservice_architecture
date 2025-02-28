@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/config"
+	"github.com/nislovskaya/golang_tools/config"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/handler"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/repository"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/service"
