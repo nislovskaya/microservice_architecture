@@ -9,26 +9,6 @@ import (
 	"strconv"
 )
 
-func (h *Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
-	resp := response.New(w, h.Logger)
-
-	var user model.User
-	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
-		h.Logger.Errorf("Failed to decode body, error: %v", err)
-		resp.BadRequest(err.Error())
-		return
-	}
-
-	if err := h.Service.CreateUser(&user); err != nil {
-		h.Logger.Errorf("Failed to create user, error: %v", err)
-		resp.InternalServerError(err.Error())
-		return
-	}
-
-	h.Logger.Infof("Created user with ID: %d", user.ID)
-	resp.Ok(user)
-}
-
 func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 	resp := response.New(w, h.Logger)
 
@@ -79,25 +59,4 @@ func (h *Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 
 	h.Logger.Infof("Updated user with ID: %d", user.ID)
 	resp.Ok(user)
-}
-
-func (h *Handler) DeleteUser(w http.ResponseWriter, r *http.Request) {
-	resp := response.New(w, h.Logger)
-
-	params := mux.Vars(r)
-	id, err := strconv.ParseUint(params["userId"], 10, 64)
-	if err != nil {
-		h.Logger.Errorf("Failed to decode body, error: %v", err)
-		resp.BadRequest(err.Error())
-		return
-	}
-
-	if err = h.Service.DeleteUser(uint(id)); err != nil {
-		h.Logger.Errorf("Failed to delete user, error: %v", err)
-		resp.NotFound("User not found")
-		return
-	}
-
-	h.Logger.Infof("Deleted user with ID: %d", id)
-	resp.NoContent()
 }

@@ -10,7 +10,6 @@ type Repository interface {
 	Create(user *model.User) error
 	GetByID(id uint) (*model.User, error)
 	Update(user *model.User) error
-	Delete(id uint) error
 }
 
 type user struct {
@@ -42,8 +41,4 @@ func (u *user) GetByID(id uint) (*model.User, error) {
 
 func (u *user) Update(user *model.User) error {
 	return u.db.Save(user).Error
-}
-
-func (u *user) Delete(id uint) error {
-	return u.db.Delete(&model.User{}, id).Error
 }

@@ -11,10 +11,8 @@ import (
 )
 
 type Service interface {
-	CreateUser(user *model.User) error
 	GetUserByID(id uint) (*model.User, error)
 	UpdateUser(user *model.User) error
-	DeleteUser(id uint) error
 
 	StartConsumer(ctx context.Context)
 }
@@ -35,14 +33,6 @@ func New(opts ...Option) Service {
 	return service
 }
 
-func (s *user) CreateUser(user *model.User) error {
-	if err := s.repo.Create(user); err != nil {
-		return fmt.Errorf("failed to create user: %w", err)
-	}
-
-	return nil
-}
-
 func (s *user) GetUserByID(id uint) (*model.User, error) {
 	user, err := s.repo.GetByID(id)
 	if err != nil {
@@ -55,14 +45,6 @@ func (s *user) GetUserByID(id uint) (*model.User, error) {
 func (s *user) UpdateUser(user *model.User) error {
 	if err := s.repo.Update(user); err != nil {
 		return fmt.Errorf("failed to update user: %w", err)
-	}
-
-	return nil
-}
-
-func (s *user) DeleteUser(id uint) error {
-	if err := s.repo.Delete(id); err != nil {
-		return fmt.Errorf("failed to delete user: %w", err)
 	}
 
 	return nil
@@ -90,13 +72,12 @@ func (s *user) handleMessage(message []byte) error {
 
 	s.logger.Infof("Received event for user with ID %d and email %s", event.ID, event.Email)
 
-	// Создаем пользователя на основе события
 	user := &model.User{
 		ID:        event.ID,
 		Email:     event.Email,
 		FirstName: "",
 		LastName:  "",
-		Username:  event.Email, // Используем email как временное имя пользователя
+		Username:  event.Email,
 		Phone:     "",
 	}
 

@@ -26,10 +26,8 @@ func (h *Handler) InitRouter() *mux.Router {
 
 	router.HandleFunc("/health", h.CheckHealth)
 
-	router.HandleFunc("/user", h.CreateUser).Methods("POST")
 	router.HandleFunc("/user/{userId}", h.GetUser).Methods("GET")
 	router.HandleFunc("/user/{userId}", h.UpdateUser).Methods("PUT")
-	router.HandleFunc("/user/{userId}", h.DeleteUser).Methods("DELETE")
 
 	return router
 }
