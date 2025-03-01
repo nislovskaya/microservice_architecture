@@ -38,6 +38,18 @@ func (e *NotFoundError) Error() string {
 	return e.Message
 }
 
+type ConflictError struct {
+	Message string
+	Err     error
+}
+
+func (e *ConflictError) Error() string {
+	if e.Err != nil {
+		return fmt.Sprintf("%s, error: %s", e.Message, e.Err.Error())
+	}
+	return e.Message
+}
+
 type InternalServerError struct {
 	Message string
 	Err     error

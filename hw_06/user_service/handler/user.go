@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/nislovskaya/golang_tools/response"
-	"github.com/nislovskaya/microservice_architecture/hw_04/crud_app/model"
+	"github.com/nislovskaya/microservice_architecture/hw_06/user_service/model"
 	"net/http"
 	"strconv"
 )

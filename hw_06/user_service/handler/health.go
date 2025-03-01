@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func (h *Handler) CheckHealth(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) CheckHealth(w http.ResponseWriter, _ *http.Request) {
 	resp := response.New(w, h.Logger)
 
 	message := struct {

@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/nislovskaya/microservice_architecture/hw_04/crud_app/model"
+	"github.com/nislovskaya/microservice_architecture/hw_06/user_service/model"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )

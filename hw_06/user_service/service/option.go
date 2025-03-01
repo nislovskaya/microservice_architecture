@@ -1,6 +1,6 @@
 package service
 
-import "github.com/nislovskaya/microservice_architecture/hw_04/crud_app/service/user"
+import "github.com/nislovskaya/microservice_architecture/hw_06/user_service/service/user"
 
 type Option func(fs *Service)
 

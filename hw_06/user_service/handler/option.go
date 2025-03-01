@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/nislovskaya/microservice_architecture/hw_04/crud_app/service"
+	"github.com/nislovskaya/microservice_architecture/hw_06/user_service/service"
 	"github.com/sirupsen/logrus"
 )
 

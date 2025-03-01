@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/kafka"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/repository"
 	"github.com/sirupsen/logrus"
 )
@@ -22,5 +23,11 @@ func WithRepository(repo repository.Repository) Option {
 func WithSecretKey(secretKey string) Option {
 	return func(a *auth) {
 		a.secretKey = secretKey
+	}
+}
+
+func WithKafkaProducer(producer *kafka.Producer) Option {
+	return func(a *auth) {
+		a.kafka = producer
 	}
 }

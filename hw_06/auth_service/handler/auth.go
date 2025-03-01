@@ -18,12 +18,13 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err = h.Service.Register(email, password); err != nil {
+	userID, err := h.Service.Register(email, password)
+	if err != nil {
 		h.Logger.Errorf("Failed to register user, error: %v", err)
-		var badReqErr *httperrors.BadRequestError
+		var conflictError *httperrors.ConflictError
 		switch {
-		case errors.As(err, &badReqErr):
-			resp.BadRequest(badReqErr.Error())
+		case errors.As(err, &conflictError):
+			resp.BadRequest(conflictError.Error())
 			return
 		default:
 			resp.InternalServerError(err.Error())
@@ -31,23 +32,11 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	message := fmt.Sprintf("User with email '%s' has successfully registered", email)
+	message := fmt.Sprintf("User with email '%d' has successfully registered", userID)
 
 	h.Logger.Infof(message)
 
 	resp.Created(&model.Message{Message: message})
-}
-
-func getCredentials(r *http.Request) (string, string, error) {
-	err := r.ParseMultipartForm(32 << 20)
-	if err != nil {
-		return "", "", fmt.Errorf("failed to parse multipart form: %v", err)
-	}
-
-	email := r.FormValue("email")
-	password := r.FormValue("password")
-
-	return email, password, nil
 }
 
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
@@ -76,4 +65,16 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	h.Logger.Infof("User with email '%s' logged in", email)
 
 	resp.Ok(&model.Token{Token: accessToken})
+}
+
+func getCredentials(r *http.Request) (string, string, error) {
+	err := r.ParseMultipartForm(32 << 20)
+	if err != nil {
+		return "", "", fmt.Errorf("failed to parse multipart form: %v", err)
+	}
+
+	email := r.FormValue("email")
+	password := r.FormValue("password")
+
+	return email, password, nil
 }
