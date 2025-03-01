@@ -24,7 +24,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		var conflictError *httperrors.ConflictError
 		switch {
 		case errors.As(err, &conflictError):
-			resp.BadRequest(conflictError.Error())
+			resp.Conflict(conflictError.Error())
 			return
 		default:
 			resp.InternalServerError(err.Error())
@@ -32,7 +32,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	message := fmt.Sprintf("User with email '%d' has successfully registered", userID)
+	message := fmt.Sprintf("User with email '%s' has successfully registered, ID: %d", email, userID)
 
 	h.Logger.Infof(message)
 

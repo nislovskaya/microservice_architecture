@@ -37,6 +37,42 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: jwt-validator
+  namespace: m
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jwt-validator
+  template:
+    metadata:
+      labels:
+        app: jwt-validator
+    spec:
+      containers:
+        - name: jwt-validator
+          image: nislovskaya/hw_06-jwt:latest
+          ports:
+            - containerPort: 8081
+          envFrom:
+            - configMapRef:
+                name: jwt-config
+            - secretRef:
+                name: jwt-secret
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8081
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8081              
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: user-app
   namespace: m
 spec:
@@ -67,39 +103,3 @@ spec:
             httpGet:
               path: /health
               port: 8082
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: jwt-validator
-  namespace: m
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: jwt-validator
-  template:
-    metadata:
-      labels:
-        app: jwt-validator
-    spec:
-      containers:
-        - name: jwt-validator
-          image: nislovskaya/hw_06-jwt:latest
-          ports:
-            - containerPort: 8081
-          envFrom:
-            - configMapRef:
-                name: jwt-config
-            - secretRef:
-                name: jwt-secret
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8081
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 8081
