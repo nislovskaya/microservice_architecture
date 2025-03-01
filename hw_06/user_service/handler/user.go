@@ -25,7 +25,7 @@ func (h *Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.Logger.Infof("Created user with id = %d", user.ID)
+	h.Logger.Infof("Created user with ID: %d", user.ID)
 	resp.Ok(user)
 }
 
@@ -34,7 +34,6 @@ func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 	id, err := strconv.ParseUint(params["userId"], 10, 64)
-	h.Logger.Debugf("user id: %v", id)
 	if err != nil {
 		h.Logger.Errorf("Failed to decode body, error: %v", err)
 		resp.BadRequest(err.Error())
@@ -48,7 +47,7 @@ func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.Logger.Infof("Getting user with id = %d", user.ID)
+	h.Logger.Infof("Getting user with ID: %d", user.ID)
 	resp.Ok(user)
 }
 
@@ -57,7 +56,6 @@ func (h *Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 	id, err := strconv.ParseUint(params["userId"], 10, 64)
-	h.Logger.Debugf("user id: %v", id)
 	if err != nil {
 		h.Logger.Errorf("Failed to decode body, error: %v", err)
 		resp.BadRequest(err.Error())
@@ -79,7 +77,7 @@ func (h *Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.Logger.Infof("Updated user with id = %d", user.ID)
+	h.Logger.Infof("Updated user with ID: %d", user.ID)
 	resp.Ok(user)
 }
 
@@ -88,7 +86,6 @@ func (h *Handler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 	id, err := strconv.ParseUint(params["userId"], 10, 64)
-	h.Logger.Debugf("user id: %v", id)
 	if err != nil {
 		h.Logger.Errorf("Failed to decode body, error: %v", err)
 		resp.BadRequest(err.Error())
@@ -101,6 +98,6 @@ func (h *Handler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.Logger.Infof("Deleted user with id = %d", id)
+	h.Logger.Infof("Deleted user with ID: %d", id)
 	resp.NoContent()
 }

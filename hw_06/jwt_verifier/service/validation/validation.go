@@ -8,7 +8,7 @@ import (
 )
 
 type Service interface {
-	ValidateToken(tokenString string) (*model.Jwt, error)
+	ValidateToken(tokenString string) (*model.JwtClaims, error)
 }
 type validation struct {
 	logger    *logrus.Entry
@@ -25,21 +25,17 @@ func New(opts ...Option) Service {
 	return service
 }
 
-func (v *validation) ValidateToken(tokenString string) (*model.Jwt, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &model.Jwt{}, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("invalid signing method")
-		}
+func (v *validation) ValidateToken(tokenString string) (*model.JwtClaims, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &model.JwtClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(v.secretKey), nil
 	})
-
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error parsing token: %v", err)
 	}
 
-	if claims, ok := token.Claims.(*model.Jwt); ok && token.Valid {
+	if claims, ok := token.Claims.(*model.JwtClaims); ok && token.Valid {
 		return claims, nil
 	}
 
-	return nil, fmt.Errorf("invalid token")
+	return nil, fmt.Errorf("invalid token claims")
 }

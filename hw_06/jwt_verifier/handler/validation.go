@@ -1,12 +1,11 @@
 package handler
 
 import (
-	"fmt"
-	"net/http"
-	"strings"
-
 	"github.com/nislovskaya/golang_tools/response"
 	"github.com/nislovskaya/microservice_architecture/hw_06/jwt_verifier/model"
+	"net/http"
+	"strconv"
+	"strings"
 )
 
 func (h *Handler) Validate(w http.ResponseWriter, r *http.Request) {
@@ -14,6 +13,7 @@ func (h *Handler) Validate(w http.ResponseWriter, r *http.Request) {
 
 	token := r.Header.Get("Authorization")
 	if token == "" {
+		h.Logger.Error("Missing Authorization header")
 		resp.Unauthorized("Missing Authorization header")
 		return
 	}
@@ -21,13 +21,15 @@ func (h *Handler) Validate(w http.ResponseWriter, r *http.Request) {
 	token = strings.Replace(token, "Bearer ", "", 1)
 	claims, err := h.Service.ValidateToken(token)
 	if err != nil {
+		h.Logger.Errorf("Error validating token: %v", err)
 		resp.Unauthorized(err.Error())
 		return
 	}
 
-	userID := fmt.Sprintf("%d", claims.UserID)
-	w.Header().Set("x-user-id", userID)
+	w.Header().Set("x-user-id", strconv.Itoa(int(claims.UserID)))
 
-	h.Logger.Infof("Token validated for user: %s", userID)
-	resp.Ok(&model.Message{Message: "Token is valid"})
+	h.Logger.Infof("Token validated for user: %d", claims.UserID)
+	resp.Ok(&model.Message{
+		Message: "Token is valid",
+	})
 }

@@ -85,8 +85,8 @@ func (a *auth) Login(email, password string) (string, error) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"sub": user.ID,
-		"exp": time.Now().Add(time.Hour * 24).Unix(),
+		"userID": user.ID,
+		"exp":    time.Now().Add(time.Hour * 24).Unix(),
 	})
 
 	tokenString, err := token.SignedString([]byte(a.secretKey))
