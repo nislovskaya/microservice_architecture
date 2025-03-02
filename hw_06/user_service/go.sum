@@ -28,6 +28,8 @@ github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9G
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
 github.com/nislovskaya/golang_tools v0.0.0-20250301140340-5c94e0577509 h1:bBkdU0hIDA1pTfy/sN97nanNvz64tcOdr6sT/mpVOg8=
 github.com/nislovskaya/golang_tools v0.0.0-20250301140340-5c94e0577509/go.mod h1:eCLqcrTAkGli84pjpmYrD5tfRruHYdhzVdhfxPlPovY=
+github.com/nislovskaya/golang_tools v0.0.0-20250302102447-55b0eb49d9f4 h1:Yy7ROvbxl4HJD1j9Z3XX6+QU5lQ6d3QVvI1zxdGE79A=
+github.com/nislovskaya/golang_tools v0.0.0-20250302102447-55b0eb49d9f4/go.mod h1:eCLqcrTAkGli84pjpmYrD5tfRruHYdhzVdhfxPlPovY=
 github.com/nislovskaya/microservice_architecture/hw_04/crud_app v0.0.0-20250210180950-7f3405e2a394 h1:DxiAOpd32hy5MNts9v3g1ClJavIRnsV6rPuHCQx30j4=
 github.com/nislovskaya/microservice_architecture/hw_04/crud_app v0.0.0-20250210180950-7f3405e2a394/go.mod h1:EZEDgWb41uXxNDqvt9mrRVJZShrbtI+Me0qVTj5RbdE=
 github.com/pierrec/lz4/v4 v4.1.15/go.mod h1:gZWDp/Ze/IJXGXf23ltt2EXimqmTUXEy0GFuRQyBid4=
