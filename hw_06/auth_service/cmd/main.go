@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/go-redis/redis/v8"
 	"github.com/gorilla/mux"
 	"github.com/nislovskaya/golang_tools/config"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/handler"
@@ -21,20 +22,22 @@ func main() {
 	db := config.ConnectDB(logger)
 	secretKey := config.GetSecret()
 
+	router := getRouter(db, secretKey)
+
+	logger.Info("Server is started...")
+	logger.Fatal(http.ListenAndServe(":8080", router))
+}
+
+func getRouter(db *gorm.DB, secretKey string) *mux.Router {
+	redisClient := redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
+
 	kafkaProducer, err := kafka.NewProducer("kafka:9092")
 	if err != nil {
 		logger.Fatalf("Failed to create Kafka producer: %v", err)
 	}
-	defer kafkaProducer.Close()
 
-	router := getRouter(db, secretKey, kafkaProducer)
-
-	logger.Info("Server is started...")
-
-	logger.Fatal(http.ListenAndServe(":8080", router))
-}
-
-func getRouter(db *gorm.DB, secretKey string, kafkaProducer *kafka.Producer) *mux.Router {
 	repo := repository.New(
 		repository.WithLogger(logger),
 		repository.WithDB(db),
@@ -45,6 +48,7 @@ func getRouter(db *gorm.DB, secretKey string, kafkaProducer *kafka.Producer) *mu
 		auth.WithRepository(repo),
 		auth.WithSecretKey(secretKey),
 		auth.WithKafkaProducer(kafkaProducer),
+		auth.WithRedis(redisClient),
 	)
 
 	services := service.New(

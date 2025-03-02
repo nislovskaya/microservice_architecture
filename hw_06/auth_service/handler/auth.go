@@ -7,6 +7,8 @@ import (
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/httperrors"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/model"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
@@ -67,6 +69,54 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	h.Logger.Infof("User with email '%s' logged in", email)
 	resp.Ok(&model.Token{
 		Token: accessToken,
+	})
+}
+
+func (h *Handler) ValidateToken(w http.ResponseWriter, r *http.Request) {
+	resp := response.New(w, h.Logger)
+
+	token := r.Header.Get("Authorization")
+	if token == "" {
+		h.Logger.Error("Missing Authorization header")
+		resp.Unauthorized("Missing Authorization header")
+		return
+	}
+
+	token = strings.Replace(token, "Bearer ", "", 1)
+	claims, err := h.Service.ValidateToken(token)
+	if err != nil {
+		h.Logger.Errorf("Error validating token: %v", err)
+		resp.Unauthorized(err.Error())
+		return
+	}
+
+	w.Header().Set("x-user-id", strconv.Itoa(int(claims.UserID)))
+	h.Logger.Infof("Token validated for user: %d", claims.UserID)
+	resp.Ok(&model.Message{
+		Message: "Token is valid",
+	})
+}
+
+func (h *Handler) Logout(w http.ResponseWriter, r *http.Request) {
+	resp := response.New(w, h.Logger)
+
+	token := r.Header.Get("Authorization")
+	if token == "" {
+		h.Logger.Error("Missing Authorization header")
+		resp.Unauthorized("Missing Authorization header")
+		return
+	}
+
+	token = strings.Replace(token, "Bearer ", "", 1)
+	if err := h.Service.Logout(token); err != nil {
+		h.Logger.Errorf("Failed to logout: %v", err)
+		resp.InternalServerError(err.Error())
+		return
+	}
+
+	h.Logger.Info("User logged out successfully")
+	resp.Ok(&model.Message{
+		Message: "Logged out successfully",
 	})
 }
 

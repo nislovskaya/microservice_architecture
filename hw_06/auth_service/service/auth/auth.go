@@ -1,9 +1,9 @@
 package auth
 
 import (
+	"context"
 	"fmt"
-	"time"
-
+	"github.com/go-redis/redis/v8"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/httperrors"
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/kafka"
@@ -11,17 +11,22 @@ import (
 	"github.com/nislovskaya/microservice_architecture/hw_06/auth_service/repository"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/crypto/bcrypt"
+	"time"
 )
 
 type Service interface {
 	Register(email, password string) (uint, error)
 	Login(email, password string) (string, error)
+	ValidateToken(token string) (*model.JwtClaims, error)
+	Logout(token string) error
 }
+
 type auth struct {
 	logger    *logrus.Entry
 	repo      repository.Repository
 	secretKey string
 	kafka     *kafka.Producer
+	redis     *redis.Client
 }
 
 func New(opts ...Option) Service {
@@ -84,9 +89,11 @@ func (a *auth) Login(email, password string) (string, error) {
 		}
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"userID": user.ID,
-		"exp":    time.Now().Add(time.Hour * 24).Unix(),
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &model.JwtClaims{
+		UserID: user.ID,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24)),
+		},
 	})
 
 	tokenString, err := token.SignedString([]byte(a.secretKey))
@@ -103,4 +110,43 @@ func hashPassword(password string) (string, error) {
 		return "", fmt.Errorf("failed to hash password: %w", err)
 	}
 	return string(hashedPassword), nil
+}
+
+func (a *auth) ValidateToken(tokenString string) (*model.JwtClaims, error) {
+	blacklisted, err := a.redis.Exists(context.Background(), fmt.Sprintf("blacklist:%s", tokenString)).Result()
+	if err != nil {
+		return nil, fmt.Errorf("failed to check blacklist: %w", err)
+	}
+	if blacklisted > 0 {
+		return nil, fmt.Errorf("token is blacklisted")
+	}
+
+	token, err := jwt.ParseWithClaims(tokenString, &model.JwtClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(a.secretKey), nil
+	})
+	if err != nil {
+		return nil, fmt.Errorf("error parsing token: %w", err)
+	}
+
+	if claims, ok := token.Claims.(*model.JwtClaims); ok && token.Valid {
+		return claims, nil
+	}
+
+	return nil, fmt.Errorf("invalid token claims")
+}
+
+func (a *auth) Logout(token string) error {
+	claims, err := a.ValidateToken(token)
+	if err != nil {
+		return fmt.Errorf("invalid token: %w", err)
+	}
+
+	exp := time.Unix(claims.ExpiresAt.Unix(), 0)
+	ttl := time.Until(exp)
+
+	if err := a.redis.Set(context.Background(), fmt.Sprintf("blacklist:%s", token), 1, ttl).Err(); err != nil {
+		return fmt.Errorf("failed to blacklist token: %w", err)
+	}
+
+	return nil
 }
