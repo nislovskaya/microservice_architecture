@@ -19,20 +19,18 @@ import (
 var logger = logrus.NewEntry(logrus.New())
 
 func main() {
-	db := config.ConnectDB(logger)
+	db := config.ConnectPostgres(logger)
 	secretKey := config.GetSecret()
 
-	router := getRouter(db, secretKey)
+	redisClient := config.ConnectRedis(logger)
+
+	router := getRouter(db, secretKey, redisClient)
 
 	logger.Info("Server is started...")
 	logger.Fatal(http.ListenAndServe(":8080", router))
 }
 
-func getRouter(db *gorm.DB, secretKey string) *mux.Router {
-	redisClient := redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
-	})
-
+func getRouter(db *gorm.DB, secretKey string, redisClient *redis.Client) *mux.Router {
 	kafkaProducer, err := kafka.NewProducer("kafka:9092")
 	if err != nil {
 		logger.Fatalf("Failed to create Kafka producer: %v", err)

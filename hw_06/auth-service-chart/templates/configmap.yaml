@@ -9,17 +9,9 @@ data:
   DB_PORT: "5432"
   DB_NAME: "users"
   JWT_SECRET: "secret"
-
----
-
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: jwt-config
-  namespace: m
-data:
-  SERVER_PORT: "8081"
-  JWT_SECRET: "secret"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+  KAFKA_BROKERS: "kafka:9092"
 
 ---
 
