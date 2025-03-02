@@ -11,6 +11,9 @@ data:
   JWT_SECRET: "secret"
   REDIS_HOST: "redis"
   REDIS_PORT: "6379"
+  REDIS_USER: "admin"
+  REDIS_PASSWORD: "password"
+  REDIS_DB: "0"
   KAFKA_BROKERS: "kafka:9092"
 
 ---
@@ -21,7 +24,7 @@ metadata:
   name: user-app-config
   namespace: m
 data:
-  SERVER_PORT: "8082"
+  SERVER_PORT: "8081"
   DB_HOST: "user-postgresql"
   DB_PORT: "5432"
   DB_NAME: "users"

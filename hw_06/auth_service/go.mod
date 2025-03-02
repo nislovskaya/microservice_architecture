@@ -3,10 +3,11 @@ module github.com/nislovskaya/microservice_architecture/hw_06/auth_service
 go 1.23.0
 
 require (
+	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/gorilla/mux v1.8.1
-	github.com/nislovskaya/golang_tools v0.0.0-20250302165637-2e6a0e5e5518
+	github.com/nislovskaya/golang_tools v0.0.0-20250302173631-391a774a9513
 	github.com/segmentio/kafka-go v0.4.47
 	github.com/sirupsen/logrus v1.9.3
 	golang.org/x/crypto v0.35.0

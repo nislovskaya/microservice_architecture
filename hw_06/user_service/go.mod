@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/gorilla/mux v1.8.1
-	github.com/nislovskaya/golang_tools v0.0.0-20250302102447-55b0eb49d9f4
+	github.com/nislovskaya/golang_tools v0.0.0-20250302173631-391a774a9513
 	github.com/segmentio/kafka-go v0.4.47
 	github.com/sirupsen/logrus v1.9.3
 	gorm.io/driver/postgres v1.5.11
@@ -12,6 +12,9 @@ require (
 )
 
 require (
+	github.com/cespare/xxhash/v2 v2.3.0 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
+	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/pgx/v5 v5.7.2 // indirect

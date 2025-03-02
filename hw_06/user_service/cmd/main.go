@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/gorilla/mux"
 	"github.com/nislovskaya/golang_tools/config"
 	"github.com/nislovskaya/microservice_architecture/hw_06/user_service/handler"
@@ -12,53 +14,74 @@ import (
 	"github.com/sirupsen/logrus"
 	_ "gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	_ "gorm.io/gorm"
-	"net/http"
 )
 
 var logger = logrus.NewEntry(logrus.New())
 
 func main() {
-	db := config.ConnectDB(logger)
+	router := getRouter()
+
+	logger.Info("Server is started...")
+	logger.Fatal(http.ListenAndServe(":8081", router))
+}
+
+func getRouter() *mux.Router {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	deps := initializeDependencies(ctx)
+	services := initializeServices(deps)
+	handlers := initializeHandlers(services)
+
+	return handlers.InitRouter()
+}
+
+type dependencies struct {
+	postgres      *gorm.DB
+	kafkaConsumer *kafka.Consumer
+	ctx           context.Context
+}
+
+func initializeDependencies(ctx context.Context) *dependencies {
+	postgres, err := config.ConnectPostgres(logger)
+	if err != nil {
+		logger.Fatal(err)
+	}
 
 	kafkaConsumer, err := kafka.NewConsumer("kafka:9092", "user-events", "user-service-group")
 	if err != nil {
 		logger.Fatalf("Failed to create Kafka consumer: %v", err)
 	}
-	defer kafkaConsumer.Close()
 
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	router := getRouter(db, kafkaConsumer, ctx)
-
-	logger.Info("Server is started...")
-
-	logger.Fatal(http.ListenAndServe(":8082", router))
+	return &dependencies{
+		postgres:      postgres,
+		kafkaConsumer: kafkaConsumer,
+		ctx:           ctx,
+	}
 }
 
-func getRouter(db *gorm.DB, kafkaConsumer *kafka.Consumer, ctx context.Context) *mux.Router {
+func initializeServices(deps *dependencies) *service.Service {
 	repo := repository.New(
 		repository.WithLogger(logger),
-		repository.WithDB(db),
+		repository.WithDB(deps.postgres),
 	)
 
 	userService := user.New(
 		user.WithLogger(logger),
 		user.WithRepository(repo),
-		user.WithKafkaConsumer(kafkaConsumer),
+		user.WithKafkaConsumer(deps.kafkaConsumer),
 	)
 
-	userService.StartConsumer(ctx)
+	userService.StartConsumer(deps.ctx)
 
-	services := service.New(
+	return service.New(
 		service.WithUserService(userService),
 	)
+}
 
-	handlers := handler.New(
+func initializeHandlers(services *service.Service) *handler.Handler {
+	return handler.New(
 		handler.WithLogger(logger),
 		handler.WithService(services),
 	)
-
-	return handlers.InitRouter()
 }

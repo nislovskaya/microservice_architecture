@@ -19,44 +19,78 @@ import (
 var logger = logrus.NewEntry(logrus.New())
 
 func main() {
-	db := config.ConnectPostgres(logger)
-	secretKey := config.GetSecret()
-
-	redisClient := config.ConnectRedis(logger)
-
-	router := getRouter(db, secretKey, redisClient)
+	router := getRouter()
 
 	logger.Info("Server is started...")
 	logger.Fatal(http.ListenAndServe(":8080", router))
 }
 
-func getRouter(db *gorm.DB, secretKey string, redisClient *redis.Client) *mux.Router {
+func getRouter() *mux.Router {
+	deps := initializeDependencies()
+	services := initializeServices(deps)
+	handlers := initializeHandlers(services)
+
+	return handlers.InitRouter()
+}
+
+type dependencies struct {
+	postgres      *gorm.DB
+	secretKey     string
+	redisClient   *redis.Client
+	kafkaProducer *kafka.Producer
+}
+
+func initializeDependencies() *dependencies {
+	postgres, err := config.ConnectPostgres(logger)
+	if err != nil {
+		logger.Fatal(err)
+	}
+
+	secretKey, err := config.GetSecret()
+	if err != nil {
+		logger.Fatal(err)
+	}
+
+	redisClient, err := config.ConnectRedis(logger)
+	if err != nil {
+		logger.Fatal(err)
+	}
+
 	kafkaProducer, err := kafka.NewProducer("kafka:9092")
 	if err != nil {
 		logger.Fatalf("Failed to create Kafka producer: %v", err)
 	}
 
+	return &dependencies{
+		postgres:      postgres,
+		secretKey:     secretKey,
+		redisClient:   redisClient,
+		kafkaProducer: kafkaProducer,
+	}
+}
+
+func initializeServices(deps *dependencies) *service.Service {
 	repo := repository.New(
 		repository.WithLogger(logger),
-		repository.WithDB(db),
+		repository.WithDB(deps.postgres),
 	)
 
 	authService := auth.New(
 		auth.WithLogger(logger),
 		auth.WithRepository(repo),
-		auth.WithSecretKey(secretKey),
-		auth.WithKafkaProducer(kafkaProducer),
-		auth.WithRedis(redisClient),
+		auth.WithSecretKey(deps.secretKey),
+		auth.WithKafkaProducer(deps.kafkaProducer),
+		auth.WithRedis(deps.redisClient),
 	)
 
-	services := service.New(
+	return service.New(
 		service.WithAuthService(authService),
 	)
+}
 
-	handlers := handler.New(
+func initializeHandlers(services *service.Service) *handler.Handler {
+	return handler.New(
 		handler.WithLogger(logger),
 		handler.WithService(services),
 	)
-
-	return handlers.InitRouter()
 }
