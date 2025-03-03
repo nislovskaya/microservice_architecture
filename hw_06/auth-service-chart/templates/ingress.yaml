@@ -33,7 +33,7 @@ metadata:
   name: user-ingress
   namespace: m
   annotations:
-    nginx.ingress.kubernetes.io/auth-url: "http://auth-service.m.svc.cluster.local/validate"
+    nginx.ingress.kubernetes.io/auth-url: "http://auth-service.m.svc.cluster.local/auth/validate"
     nginx.ingress.kubernetes.io/auth-method: "POST"
     nginx.ingress.kubernetes.io/auth-response-headers: "x-user-id"
     nginx.ingress.kubernetes.io/enable-cors: "true"

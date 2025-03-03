@@ -5,6 +5,8 @@ metadata:
   namespace: m
 data:
   SERVER_PORT: "8080"
+  DB_USER: "root"
+  DB_PASSWORD: "pass"
   DB_HOST: "auth-postgresql"
   DB_PORT: "5432"
   DB_NAME: "users"
@@ -25,6 +27,9 @@ metadata:
   namespace: m
 data:
   SERVER_PORT: "8081"
+  DB_USER: "root"
+  DB_PASSWORD: "pass"
   DB_HOST: "user-postgresql"
   DB_PORT: "5432"
   DB_NAME: "users"
+  KAFKA_BROKERS: "kafka:9092"

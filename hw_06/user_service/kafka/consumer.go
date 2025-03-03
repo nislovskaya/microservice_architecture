@@ -33,7 +33,7 @@ func (c *Consumer) Consume(ctx context.Context, handler MessageHandler) error {
 				return err
 			}
 
-			if err := handler(m.Value); err != nil {
+			if err = handler(m.Value); err != nil {
 				return err
 			}
 		}
