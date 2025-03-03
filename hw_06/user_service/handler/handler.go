@@ -24,10 +24,11 @@ func New(opts ...Option) *Handler {
 func (h *Handler) InitRouter() *mux.Router {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/health", h.CheckHealth)
+	api := router.PathPrefix("/user").Subrouter()
 
-	router.HandleFunc("/user/{userId}", h.GetUser).Methods("GET")
-	router.HandleFunc("/user/{userId}", h.UpdateUser).Methods("PUT")
+	api.HandleFunc("/health", h.CheckHealth).Methods("GET")
+	api.HandleFunc("/{userId}", h.GetUser).Methods("GET")
+	api.HandleFunc("/{userId}", h.UpdateUser).Methods("PUT")
 
 	return router
 }

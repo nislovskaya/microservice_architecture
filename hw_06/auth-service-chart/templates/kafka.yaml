@@ -7,6 +7,7 @@ spec:
   ports:
     - port: 9092
       targetPort: 9092
+      name: kafka
       protocol: TCP
   selector:
     app: kafka
@@ -28,22 +29,32 @@ spec:
       labels:
         app: kafka
     spec:
+      volumes:
+        - name: kafka-storage
+          emptyDir: {}
       containers:
         - name: kafka
           image: bitnami/kafka:latest
           ports:
             - containerPort: 9092
           env:
-            - name: KAFKA_CFG_ZOOKEEPER_CONNECT
-              value: zookeeper:2181
+            - name: KAFKA_BROKER_ID
+              value: "1"
+            - name: KAFKA_ZOOKEEPER_CONNECT
+              value: "zookeeper:2181"
+            - name: KAFKA_LISTENERS
+              value: "PLAINTEXT://:9092"
+            - name: KAFKA_ADVERTISED_LISTENERS
+              value: "PLAINTEXT://kafka:9092"
+            - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
+              value: "true"
+            - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+              value: "1"
             - name: ALLOW_PLAINTEXT_LISTENER
               value: "yes"
-            - name: KAFKA_CFG_LISTENERS
-              value: PLAINTEXT://:9092
-            - name: KAFKA_CFG_ADVERTISED_LISTENERS
-              value: PLAINTEXT://kafka:9092
-            - name: KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE
-              value: "true"
+          volumeMounts:
+            - name: kafka-storage
+              mountPath: /kafka
 
 ---
 
@@ -56,6 +67,7 @@ spec:
   ports:
     - port: 2181
       targetPort: 2181
+      name: client
       protocol: TCP
   selector:
     app: zookeeper
@@ -85,3 +97,11 @@ spec:
           env:
             - name: ALLOW_ANONYMOUS_LOGIN
               value: "yes"
+            - name: ZOOKEEPER_CLIENT_PORT
+              value: "2181"  
+            - name: ZOOKEEPER_TICK_TIME
+              value: "2000"
+            - name: ZOOKEEPER_INIT_LIMIT
+              value: "5"
+            - name: ZOOKEEPER_SYNC_LIMIT
+              value: "2"

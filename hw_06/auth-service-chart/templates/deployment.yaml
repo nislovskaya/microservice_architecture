@@ -25,11 +25,11 @@ spec:
                 name: auth-db-secret
           livenessProbe:
             httpGet:
-              path: /health
+              path: /auth/health
               port: 8080
           readinessProbe:
             httpGet:
-              path: /health
+              path: /auth/health
               port: 8080
 
 ---
@@ -61,9 +61,9 @@ spec:
                 name: user-db-secret
           livenessProbe:
             httpGet:
-              path: /health
+              path: /user/health
               port: 8081
           readinessProbe:
             httpGet:
-              path: /health
+              path: /user/health
               port: 8081

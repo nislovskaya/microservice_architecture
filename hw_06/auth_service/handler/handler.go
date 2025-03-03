@@ -25,15 +25,17 @@ func New(opts ...Option) *Handler {
 func (h *Handler) InitRouter() *mux.Router {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/health", h.CheckHealth)
-	router.HandleFunc("/register", h.Register).Methods("POST")
-	router.HandleFunc("/login", h.Login).Methods("POST")
+	api := router.PathPrefix("/auth").Subrouter()
 
-	protected := router.PathPrefix("").Subrouter()
+	api.HandleFunc("/health", h.CheckHealth).Methods("GET")
+	api.HandleFunc("/register", h.Register).Methods("POST")
+	api.HandleFunc("/login", h.Login).Methods("POST")
+	api.HandleFunc("/validate", h.ValidateToken).Methods("POST")
+
+	protected := api.PathPrefix("").Subrouter()
 	mdw := middleware.New(h.Logger, h.Service)
 	protected.Use(mdw.AuthMiddleware())
 
-	protected.HandleFunc("/validate", h.ValidateToken).Methods("POST")
 	protected.HandleFunc("/logout", h.Logout).Methods("POST")
 
 	return router
