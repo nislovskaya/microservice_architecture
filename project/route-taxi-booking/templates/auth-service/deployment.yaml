@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-app
+  namespace: m
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth-app
+  template:
+    metadata:
+      labels:
+        app: auth-app
+    spec:
+      containers:
+        - name: app
+          image: nislovskaya/hw_06-auth:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: auth-app-config
+            - secretRef:
+                name: auth-db-secret
+          livenessProbe:
+            httpGet:
+              path: /auth/health
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /auth/health
+              port: 8080

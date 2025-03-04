@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-app-config
+  namespace: m
+data:
+  SERVER_PORT: "8081"
+  DB_USER: "root"
+  DB_PASSWORD: "pass"
+  DB_HOST: "user-postgresql"
+  DB_PORT: "5432"
+  DB_NAME: "users"
+  KAFKA_BROKERS: "kafka:9092"

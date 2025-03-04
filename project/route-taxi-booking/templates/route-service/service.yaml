@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: route-service
+  namespace: m
+spec:
+  selector:
+    app: route-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8082

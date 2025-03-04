@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-app-config
+  namespace: m
+data:
+  SERVER_PORT: "8080"
+  DB_USER: "root"
+  DB_PASSWORD: "pass"
+  DB_HOST: "auth-postgresql"
+  DB_PORT: "5432"
+  DB_NAME: "users"
+  JWT_SECRET: "secret"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+  REDIS_USER: "admin"
+  REDIS_PASSWORD: "password"
+  REDIS_DB: "0"
+  KAFKA_BROKERS: "kafka:9092"

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: booking-app-config
+  namespace: m
+data:
+  SERVER_PORT: "8083"
+  DB_USER: "root"
+  DB_PASSWORD: "pass"
+  DB_HOST: "booking-postgresql"
+  DB_PORT: "5432"
+  DB_NAME: "bookings"
+  KAFKA_BROKERS: "kafka:9092"
+  KAFKA_TOPIC: "route-events"
+  KAFKA_GROUP_ID: "booking-service-group"

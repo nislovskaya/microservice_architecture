@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-postgresql
+  namespace: m
+spec:
+  selector:
+    app: auth-postgresql
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-postgresql
+  namespace: m
+spec:
+  selector:
+    app: user-postgresql
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: route-postgresql
+  namespace: m
+spec:
+  selector:
+    app: route-postgresql
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-postgresql
+  namespace: m
+spec:
+  selector:
+    app: booking-postgresql
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
