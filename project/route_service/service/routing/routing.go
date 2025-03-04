@@ -2,6 +2,7 @@ package routing
 
 import (
 	"fmt"
+	"github.com/nislovskaya/microservice_architecture/project/route_service/kafka"
 	"github.com/nislovskaya/microservice_architecture/project/route_service/model"
 	"github.com/nislovskaya/microservice_architecture/project/route_service/repository"
 	"github.com/sirupsen/logrus"
@@ -20,6 +21,7 @@ type Service interface {
 type routing struct {
 	logger *logrus.Entry
 	repo   repository.Repository
+	kafka  *kafka.Producer
 }
 
 func New(opts ...Option) Service {
@@ -36,7 +38,22 @@ func (r *routing) CreateRoute(route *model.Route) error {
 	if err := r.validateRoute(route); err != nil {
 		return err
 	}
-	return r.repo.CreateRoute(route)
+	if err := r.repo.CreateRoute(route); err != nil {
+		return err
+	}
+
+	event := model.RouteEvent{
+		Type:      "ROUTE_CREATED",
+		RouteID:   route.ID,
+		Capacity:  route.Capacity,
+		Timestamp: time.Now().String(),
+	}
+
+	if err := r.kafka.Publish("route-events", event); err != nil {
+		r.logger.Errorf("Failed to publish route created event: %v", err)
+	}
+
+	return nil
 }
 
 func (r *routing) GetRoute(id uint) (*model.Route, error) {
@@ -47,11 +64,40 @@ func (r *routing) UpdateRoute(route *model.Route) error {
 	if err := r.validateRoute(route); err != nil {
 		return err
 	}
-	return r.repo.UpdateRoute(route)
+	if err := r.repo.UpdateRoute(route); err != nil {
+		return err
+	}
+
+	event := model.RouteEvent{
+		Type:      "ROUTE_UPDATED",
+		RouteID:   route.ID,
+		Capacity:  route.Capacity,
+		Timestamp: time.Now().String(),
+	}
+
+	if err := r.kafka.Publish("route-events", event); err != nil {
+		r.logger.Errorf("Failed to publish route updated event: %v", err)
+	}
+
+	return nil
 }
 
 func (r *routing) DeleteRoute(id uint) error {
-	return r.repo.DeleteRoute(id)
+	if err := r.repo.DeleteRoute(id); err != nil {
+		return err
+	}
+
+	event := model.RouteEvent{
+		Type:      "ROUTE_DELETED",
+		RouteID:   id,
+		Timestamp: time.Now().String(),
+	}
+
+	if err := r.kafka.Publish("route-events", event); err != nil {
+		r.logger.Errorf("Failed to publish route deleted event: %v", err)
+	}
+
+	return nil
 }
 
 func (r *routing) GetRoutes() ([]model.Route, error) {

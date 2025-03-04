@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/nislovskaya/golang_tools/config"
 	"github.com/nislovskaya/microservice_architecture/project/route_service/handler"
+	"github.com/nislovskaya/microservice_architecture/project/route_service/kafka"
 	"github.com/nislovskaya/microservice_architecture/project/route_service/repository"
 	"github.com/nislovskaya/microservice_architecture/project/route_service/service"
 	"github.com/nislovskaya/microservice_architecture/project/route_service/service/routing"
@@ -16,20 +17,26 @@ import (
 var logger = logrus.NewEntry(logrus.New())
 
 func main() {
-	router := getRouter()
+	kafkaProducer, err := kafka.NewProducer("kafka:9092")
+	if err != nil {
+		logger.Fatalf("Failed to create Kafka producer: %v", err)
+	}
+	defer kafkaProducer.Close()
+
+	router := getRouter(kafkaProducer)
 
 	logger.Info("Route Service is starting...")
 	logger.Fatal(http.ListenAndServe(":8082", router))
 }
 
-func getRouter() *mux.Router {
-	services := initializeServices()
+func getRouter(producer *kafka.Producer) *mux.Router {
+	services := initializeServices(producer)
 	handlers := initializeHandlers(services)
 
 	return handlers.InitRouter()
 }
 
-func initializeServices() *service.Service {
+func initializeServices(producer *kafka.Producer) *service.Service {
 	postgres, err := config.ConnectPostgres(logger)
 	if err != nil {
 		logger.Fatal(err)
@@ -43,6 +50,7 @@ func initializeServices() *service.Service {
 	routingService := routing.New(
 		routing.WithLogger(logger),
 		routing.WithRepository(routeRepo),
+		routing.WithKafkaProducer(producer),
 	)
 
 	return service.New(

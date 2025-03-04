@@ -1,4 +1,4 @@
-module github.com/nislovskaya/microservice_architecture/project/route_service
+module github.com/nislovskaya/microservice_architecture/project/booking_service
 
 go 1.23.0
 
