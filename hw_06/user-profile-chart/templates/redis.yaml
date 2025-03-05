@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: m
+spec:
+  selector:
+    app: redis
+  ports:
+    - port: 6379
+      targetPort: 6379
+      protocol: TCP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: m
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.2.3
+          ports:
+            - containerPort: 6379
+          command: 
+            - sh
+            - -c
+            - |
+              mkdir -p /usr/local/etc/redis &&
+              echo "bind 0.0.0.0" > /usr/local/etc/redis/redis.conf &&
+              echo "requirepass ${REDIS_PASSWORD}" >> /usr/local/etc/redis/redis.conf &&
+              echo "user default on >${REDIS_PASSWORD} ~* +@all" >> /usr/local/etc/redis/users.acl &&
+              echo "user ${REDIS_USER} on >${REDIS_PASSWORD} ~* +@all" >> /usr/local/etc/redis/users.acl &&
+              redis-server /usr/local/etc/redis/redis.conf --aclfile /usr/local/etc/redis/users.acl
+          env:
+            - name: REDIS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: auth-db-secret
+                  key: REDIS_USER
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: auth-db-secret
+                  key: REDIS_PASSWORD
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 5
+            periodSeconds: 10
