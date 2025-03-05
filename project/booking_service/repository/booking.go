@@ -9,7 +9,6 @@ import (
 type Repository interface {
 	CreateBooking(booking *model.Booking) error
 	GetBooking(id uint) (*model.Booking, error)
-	UpdateBooking(booking *model.Booking) error
 	GetUserBookings(userID uint) ([]model.Booking, error)
 	GetRouteBookings(routeID uint) ([]model.Booking, error)
 	DeleteBooking(id uint) error
@@ -40,10 +39,6 @@ func (b *booking) GetBooking(id uint) (*model.Booking, error) {
 		return nil, err
 	}
 	return &booking, nil
-}
-
-func (b *booking) UpdateBooking(booking *model.Booking) error {
-	return b.db.Save(booking).Error
 }
 
 func (b *booking) GetUserBookings(userID uint) ([]model.Booking, error) {

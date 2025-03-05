@@ -14,7 +14,6 @@ import (
 type Service interface {
 	CreateBooking(booking *model.Booking) error
 	GetBooking(id uint) (*model.Booking, error)
-	UpdateBooking(booking *model.Booking) error
 	GetUserBookings(userID uint) ([]model.Booking, error)
 	CancelBooking(id uint) error
 
@@ -47,13 +46,6 @@ func (b *booking) CreateBooking(booking *model.Booking) error {
 
 func (b *booking) GetBooking(id uint) (*model.Booking, error) {
 	return b.repo.GetBooking(id)
-}
-
-func (b *booking) UpdateBooking(booking *model.Booking) error {
-	if err := b.validateBooking(booking); err != nil {
-		return err
-	}
-	return b.repo.UpdateBooking(booking)
 }
 
 func (b *booking) GetUserBookings(userID uint) ([]model.Booking, error) {

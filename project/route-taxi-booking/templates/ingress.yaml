@@ -9,7 +9,6 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization"
-    nginx.ingress.kubernetes.io/rewrite-target: /auth/$1
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx
@@ -22,6 +21,13 @@ spec:
             backend:
               service:
                 name: auth-service
+                port:
+                  number: 80
+          - path: /route/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: route-service
                 port:
                   number: 80
                   
@@ -41,7 +47,6 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization"
-    nginx.ingress.kubernetes.io/rewrite-target: /user/$1
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx
@@ -50,6 +55,13 @@ spec:
       http:
         paths:
           - path: /user/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: user-service
+                port:
+                  number: 80
+          - path: /booking/(.*)
             pathType: ImplementationSpecific
             backend:
               service:
