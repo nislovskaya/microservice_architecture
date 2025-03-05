@@ -12,6 +12,7 @@ type Repository interface {
 	UpdateBooking(booking *model.Booking) error
 	GetUserBookings(userID uint) ([]model.Booking, error)
 	GetRouteBookings(routeID uint) ([]model.Booking, error)
+	DeleteBooking(id uint) error
 }
 
 type booking struct {
@@ -59,4 +60,8 @@ func (b *booking) GetRouteBookings(routeID uint) ([]model.Booking, error) {
 		return nil, err
 	}
 	return bookings, nil
+}
+
+func (b *booking) DeleteBooking(id uint) error {
+	return b.db.Delete(&model.Booking{}, id).Error
 }

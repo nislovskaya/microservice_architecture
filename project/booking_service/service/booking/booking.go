@@ -17,7 +17,7 @@ type Service interface {
 	UpdateBooking(booking *model.Booking) error
 	GetUserBookings(userID uint) ([]model.Booking, error)
 	CancelBooking(id uint) error
-	ConfirmBooking(id uint) error
+
 	StartConsumer(ctx context.Context)
 }
 
@@ -42,7 +42,6 @@ func (b *booking) CreateBooking(booking *model.Booking) error {
 		return err
 	}
 
-	booking.Status = "pending"
 	return b.repo.CreateBooking(booking)
 }
 
@@ -62,23 +61,7 @@ func (b *booking) GetUserBookings(userID uint) ([]model.Booking, error) {
 }
 
 func (b *booking) CancelBooking(id uint) error {
-	booking, err := b.repo.GetBooking(id)
-	if err != nil {
-		return err
-	}
-
-	booking.Status = "cancelled"
-	return b.repo.UpdateBooking(booking)
-}
-
-func (b *booking) ConfirmBooking(id uint) error {
-	booking, err := b.repo.GetBooking(id)
-	if err != nil {
-		return err
-	}
-
-	booking.Status = "confirmed"
-	return b.repo.UpdateBooking(booking)
+	return b.repo.DeleteBooking(id)
 }
 
 func (b *booking) validateBooking(booking *model.Booking) error {
@@ -133,14 +116,10 @@ func (b *booking) handleRouteDeleted(routeID uint) error {
 	}
 
 	for _, booking := range bookings {
-		if booking.Status == "pending" {
-			booking.Status = "cancelled"
-			if err := b.repo.UpdateBooking(&booking); err != nil {
-				b.logger.Errorf("Failed to cancel booking %d: %v", booking.ID, err)
-			}
+		if err := b.repo.DeleteBooking(booking.ID); err != nil {
+			b.logger.Errorf("Failed to delete booking %d: %v", booking.ID, err)
 		}
 	}
-
 	return nil
 }
 
@@ -152,9 +131,7 @@ func (b *booking) handleRouteUpdated(event model.RouteEvent) error {
 
 	totalSeats := 0
 	for _, booking := range bookings {
-		if booking.Status != "cancelled" {
-			totalSeats += booking.Seats
-		}
+		totalSeats += booking.Seats
 	}
 
 	if totalSeats > event.Capacity {
@@ -167,12 +144,10 @@ func (b *booking) handleRouteUpdated(event model.RouteEvent) error {
 func (b *booking) cancelExcessBookings(bookings []model.Booking, capacity int) error {
 	totalSeats := 0
 	for i := len(bookings) - 1; i >= 0; i-- {
-		if bookings[i].Status != "cancelled" {
-			totalSeats += bookings[i].Seats
-			if totalSeats > capacity {
-				if err := b.CancelBooking(bookings[i].ID); err != nil {
-					b.logger.Errorf("Failed to cancel booking %d: %v", bookings[i].ID, err)
-				}
+		totalSeats += bookings[i].Seats
+		if totalSeats > capacity {
+			if err := b.repo.DeleteBooking(bookings[i].ID); err != nil {
+				b.logger.Errorf("Failed to delete booking %d: %v", bookings[i].ID, err)
 			}
 		}
 	}

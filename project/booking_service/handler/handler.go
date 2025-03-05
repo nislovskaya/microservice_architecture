@@ -31,7 +31,6 @@ func (h *Handler) InitRouter() *mux.Router {
 	api.HandleFunc("/{bookingId}", h.GetBooking).Methods("GET")
 	api.HandleFunc("/user", h.GetUserBookings).Methods("GET")
 	api.HandleFunc("/{bookingId}/cancel", h.CancelBooking).Methods("POST")
-	api.HandleFunc("/{bookingId}/confirm", h.ConfirmBooking).Methods("POST")
 
 	return router
 }

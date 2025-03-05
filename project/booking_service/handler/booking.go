@@ -2,11 +2,13 @@ package handler
 
 import (
 	"encoding/json"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/gorilla/mux"
 	"github.com/nislovskaya/golang_tools/response"
 	"github.com/nislovskaya/microservice_architecture/project/booking_service/model"
-	"net/http"
-	"strconv"
 )
 
 func (h *Handler) CreateBooking(w http.ResponseWriter, r *http.Request) {
@@ -19,13 +21,13 @@ func (h *Handler) CreateBooking(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Получаем ID пользователя из контекста (после аутентификации)
 	userID := r.Context().Value("userID").(uint)
 
 	booking := &model.Booking{
-		UserID:  userID,
-		RouteID: bookingReq.RouteID,
-		Seats:   bookingReq.Seats,
+		UserID:    userID,
+		RouteID:   bookingReq.RouteID,
+		Seats:     bookingReq.Seats,
+		CreatedAt: time.Now(),
 	}
 
 	if err := h.Service.CreateBooking(booking); err != nil {
@@ -86,26 +88,6 @@ func (h *Handler) CancelBooking(w http.ResponseWriter, r *http.Request) {
 
 	if err = h.Service.CancelBooking(uint(id)); err != nil {
 		h.Logger.Errorf("Error cancelling booking: %v", err)
-		resp.InternalServerError(err.Error())
-		return
-	}
-
-	resp.NoContent()
-}
-
-func (h *Handler) ConfirmBooking(w http.ResponseWriter, r *http.Request) {
-	resp := response.New(w, h.Logger)
-
-	vars := mux.Vars(r)
-	id, err := strconv.ParseUint(vars["bookingId"], 10, 32)
-	if err != nil {
-		h.Logger.Errorf("Error parsing booking ID: %v", err)
-		resp.BadRequest("invalid booking ID")
-		return
-	}
-
-	if err = h.Service.ConfirmBooking(uint(id)); err != nil {
-		h.Logger.Errorf("Error confirming booking: %v", err)
 		resp.InternalServerError(err.Error())
 		return
 	}
