@@ -27,10 +27,11 @@ func (h *Handler) InitRouter() *mux.Router {
 	api := router.PathPrefix("/booking").Subrouter()
 
 	api.HandleFunc("/health", h.CheckHealth).Methods("GET")
+
 	api.HandleFunc("/create", h.CreateBooking).Methods("POST")
 	api.HandleFunc("/{bookingId}", h.GetBooking).Methods("GET")
-	api.HandleFunc("/user", h.GetUserBookings).Methods("GET")
-	api.HandleFunc("/{bookingId}/cancel", h.CancelBooking).Methods("POST")
+	api.HandleFunc("/{userId}", h.GetUserBookings).Methods("GET")
+	api.HandleFunc("/{bookingId}/cancel", h.CancelBooking).Methods("DELETE")
 
 	return router
 }

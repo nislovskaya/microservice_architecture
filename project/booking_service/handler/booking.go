@@ -75,7 +75,21 @@ func (h *Handler) GetUserBookings(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	bookings, err := h.Service.GetUserBookings(uint(currentUserID))
+	params := mux.Vars(r)
+	requestedUserID, err := strconv.ParseUint(params["userId"], 10, 64)
+	if err != nil {
+		h.Logger.Errorf("Failed to parse userId, error: %v", err)
+		resp.BadRequest(err.Error())
+		return
+	}
+
+	if requestedUserID != currentUserID {
+		h.Logger.Errorf("User %d attempted to access profile of user %d", currentUserID, requestedUserID)
+		resp.Forbidden("Access denied")
+		return
+	}
+
+	bookings, err := h.Service.GetUserBookings(uint(requestedUserID))
 	if err != nil {
 		h.Logger.Errorf("Error getting user bookings: %v", err)
 		resp.InternalServerError(err.Error())

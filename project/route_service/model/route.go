@@ -10,5 +10,5 @@ type Route struct {
 	Arrival   time.Time `json:"arrival" gorm:"not null"`
 	Capacity  int       `json:"capacity" gorm:"not null"`
 	Price     float64   `json:"price" gorm:"type:decimal(10,2);not null"`
-	CreatedAt time.Time `json:"createdAt" gorm:"column:created_at;default:CURRENT_TIMESTAMP"`
+	CreatedAt time.Time `json:"createdAt" gorm:"default:CURRENT_TIMESTAMP"`
 }
