@@ -65,6 +65,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: user-service
+                name: booking-service
                 port:
                   number: 80

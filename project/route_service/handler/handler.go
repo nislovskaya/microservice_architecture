@@ -28,7 +28,7 @@ func (h *Handler) InitRouter() *mux.Router {
 
 	api.HandleFunc("/health", h.CheckHealth).Methods("GET")
 
-	api.HandleFunc("", h.CreateRoute).Methods("POST")
+	api.HandleFunc("/create", h.CreateRoute).Methods("POST")
 	api.HandleFunc("/{routeId}", h.GetRoute).Methods("GET")
 	api.HandleFunc("/{routeId}", h.UpdateRoute).Methods("PUT")
 	api.HandleFunc("/{routeId}", h.DeleteRoute).Methods("DELETE")
