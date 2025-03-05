@@ -1,0 +1,593 @@
+{
+	"info": {
+		"_postman_id": "cf54f231-5305-4b8e-9907-5e5a07eb08f0",
+		"name": "Route Taxi Booking System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39713356",
+		"_collection_link": "https://uiip88.postman.co/workspace/microservice-architecture~5a5165f3-81a8-4b0b-9bbe-99153306aed2/collection/15352535-cf54f231-5305-4b8e-9907-5e5a07eb08f0?action=share&source=collection_link&creator=39713356"
+	},
+	"item": [
+		{
+			"name": "1. Register User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 201', function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"const response = pm.response.json();",
+							"pm.environment.set('user1_id', response.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "test.user@example.com"
+						},
+						{
+							"key": "password",
+							"value": "TestPassword123!"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Try to Get User Profile Without Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 401', function() {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImV4cCI6MTc0MTI2MzIxOX0.KBeyCO2ZFGC6YE1nOT1vTAPNSo26W5fmid9W5o7ORGk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/user/{{user_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Login User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"const response = pm.response.json();",
+							"pm.environment.set('user1_token', response.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "test.user@example.com"
+						},
+						{
+							"key": "password",
+							"value": "TestPassword123!"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Update User 1 Profile",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set('new_email', pm.variables.replaceIn('{{$randomEmail}}'));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function() {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImV4cCI6MTc0MTI1ODQ3MX0.dq8n8rEnkBkGZuSLCmQdcE-PF9Bd_sMbSjc60oR3DrI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user1_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"username\": \"test.user@example.com\",\n    \"firstName\": \"test\",\n    \"lastName\": \"user\",\n    \"email\": \"test.user@example.com\",\n    \"phone\": \"\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/user/{{user1_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"{{user1_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Create Route - admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 201', function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"const response = pm.response.json();",
+							"pm.environment.set('route_id', response.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user1_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fromCity\": \"Moscow\",\n    \"toCity\": \"Minsk\",\n    \"departure\": \"2024-03-25T10:00:00Z\",\n    \"arrival\": \"2024-03-25T13:00:00Z\",\n    \"capacity\": 10,\n    \"price\": 5000.00\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/route/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"route",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Search Routes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Routes array is not empty', function() {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.be.an('array');",
+							"    pm.expect(response.length).to.be.at.least(1);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user1_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/route/search?from=Moscow&to=Minsk",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"route",
+						"search"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "Moscow"
+						},
+						{
+							"key": "to",
+							"value": "Minsk"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Get Route - admin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/route/{{routeId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"route",
+						"{{routeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. Update Route - admin",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fromCity\": \"Moscow\",\n    \"toCity\": \"Minsk\",\n    \"departure\": \"2024-03-26T10:00:00Z\",\n    \"arrival\": \"2024-03-26T13:00:00Z\",\n    \"capacity\": 15,\n    \"price\": 5000.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/route/{{routeId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"route",
+						"{{routeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. Delete Route - admin",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/route/{{routeId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"route",
+						"{{routeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10. Create Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 201', function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"const response = pm.response.json();",
+							"pm.environment.set('booking_id', response.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImV4cCI6MTc0MTIzOTA3Nn0.bOUN_5f4ke-4TliPt2ZKV_4rvRVtdz4A_b6-s2Kv-V4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user1_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"routeId\": 1,\n    \"seats\": 2\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/booking/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"booking",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11. Get Booking Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Booking ID matches', function() {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response.id).to.eql(pm.environment.get('booking_id'));",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImV4cCI6MTc0MTI1MTEwNH0.J5q-olA1oKEda09Xz002wiF5MXFHhKYxIg9iim3ho2M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user1_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/booking/{{booking_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"booking",
+						"{{booking_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12. Get User Bookings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Bookings array contains created booking', function() {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.be.an('array');",
+							"    pm.expect(response.some(booking => booking.id === pm.environment.get('booking_id'))).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImV4cCI6MTc0MTI1MTEwNH0.J5q-olA1oKEda09Xz002wiF5MXFHhKYxIg9iim3ho2M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user1_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/booking/{{userId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"booking",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "13. Cancel Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 204', function() {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsImV4cCI6MTc0MTI1MTEwNH0.J5q-olA1oKEda09Xz002wiF5MXFHhKYxIg9iim3ho2M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{user1_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/booking/{{booking_id}}/cancel",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"booking",
+						"{{booking_id}}",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://arch.homework"
+		}
+	]
+}
