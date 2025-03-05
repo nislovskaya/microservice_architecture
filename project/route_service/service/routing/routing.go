@@ -113,7 +113,7 @@ func (r *routing) SearchRoutes(from, to, dateStr string) ([]model.Route, error) 
 }
 
 func (r *routing) validateRoute(route *model.Route) error {
-	if route.StartPoint == "" || route.EndPoint == "" {
+	if route.FromCity == "" || route.ToCity == "" {
 		return fmt.Errorf("start point and end point are required")
 	}
 	if route.Price <= 0 {
