@@ -1,14 +1,5 @@
 package model
 
-const (
-	RouteCreated     = "ROUTE_CREATED"
-	RouteUpdated     = "ROUTE_UPDATED"
-	RouteDeleted     = "ROUTE_DELETED"
-	BookingCreated   = "BOOKING_CREATED"
-	BookingCanceled  = "BOOKING_CANCELED"
-	BookingConfirmed = "BOOKING_CONFIRMED"
-)
-
 type RouteEvent struct {
 	Type      string `json:"type"`
 	RouteID   uint   `json:"routeId"`

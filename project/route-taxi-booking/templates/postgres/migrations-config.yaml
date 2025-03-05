@@ -89,7 +89,6 @@ data:
         user_id    INTEGER NOT NULL,
         route_id   INTEGER NOT NULL,
         seats      INTEGER NOT NULL,
-        status     VARCHAR(20) NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (route_id) REFERENCES routes(id)
     );
