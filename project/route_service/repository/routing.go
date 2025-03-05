@@ -4,7 +4,6 @@ import (
 	"github.com/nislovskaya/microservice_architecture/project/route_service/model"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
-	"time"
 )
 
 type Repository interface {
@@ -13,7 +12,7 @@ type Repository interface {
 	UpdateRoute(route *model.Route) error
 	DeleteRoute(id uint) error
 	GetRoutes() ([]model.Route, error)
-	SearchRoutes(from, to string, date time.Time) ([]model.Route, error)
+	SearchRoutes(from, to string) ([]model.Route, error)
 }
 
 type routing struct {
@@ -59,9 +58,9 @@ func (r *routing) GetRoutes() ([]model.Route, error) {
 	return routes, nil
 }
 
-func (r *routing) SearchRoutes(from, to string, date time.Time) ([]model.Route, error) {
+func (r *routing) SearchRoutes(from, to string) ([]model.Route, error) {
 	var routes []model.Route
-	query := r.db.Where("start_point = ? AND end_point = ? AND is_active = ?", from, to, true)
+	query := r.db.Where("from_city = ? AND to_city = ? ", from, to)
 	if err := query.Find(&routes).Error; err != nil {
 		return nil, err
 	}

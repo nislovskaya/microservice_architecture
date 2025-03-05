@@ -102,10 +102,10 @@ func (h *Handler) SearchRoutes(w http.ResponseWriter, r *http.Request) {
 
 	from := r.URL.Query().Get("from")
 	to := r.URL.Query().Get("to")
-	date := r.URL.Query().Get("date")
+	date := r.URL.Query().Get("departure")
 
-	if from == "" || to == "" || date == "" {
-		resp.BadRequest("from, to and date parameters are required")
+	if from == "" || to == "" {
+		resp.BadRequest("from and to parameters are required")
 		return
 	}
 

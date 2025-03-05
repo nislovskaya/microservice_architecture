@@ -14,23 +14,28 @@ import (
 func (h *Handler) CreateBooking(w http.ResponseWriter, r *http.Request) {
 	resp := response.New(w, h.Logger)
 
+	currentUserID, err := strconv.ParseUint(r.Header.Get("x-user-id"), 10, 64)
+	if err != nil {
+		h.Logger.Errorf("Failed to parse x-user-id header, error: %v", err)
+		resp.Unauthorized("Invalid user ID")
+		return
+	}
+
 	var bookingReq model.BookingRequest
-	if err := json.NewDecoder(r.Body).Decode(&bookingReq); err != nil {
+	if err = json.NewDecoder(r.Body).Decode(&bookingReq); err != nil {
 		h.Logger.Errorf("Error decoding request body: %v", err)
 		resp.BadRequest(err.Error())
 		return
 	}
 
-	userID := r.Context().Value("userID").(uint)
-
 	booking := &model.Booking{
-		UserID:    userID,
+		UserID:    uint(currentUserID),
 		RouteID:   bookingReq.RouteID,
 		Seats:     bookingReq.Seats,
 		CreatedAt: time.Now(),
 	}
 
-	if err := h.Service.CreateBooking(booking); err != nil {
+	if err = h.Service.CreateBooking(booking); err != nil {
 		h.Logger.Errorf("Error creating booking: %v", err)
 		resp.InternalServerError(err.Error())
 		return
@@ -63,9 +68,14 @@ func (h *Handler) GetBooking(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) GetUserBookings(w http.ResponseWriter, r *http.Request) {
 	resp := response.New(w, h.Logger)
 
-	userID := r.Context().Value("userID").(uint)
+	currentUserID, err := strconv.ParseUint(r.Header.Get("x-user-id"), 10, 64)
+	if err != nil {
+		h.Logger.Errorf("Failed to parse x-user-id header, error: %v", err)
+		resp.Unauthorized("Invalid user ID")
+		return
+	}
 
-	bookings, err := h.Service.GetUserBookings(userID)
+	bookings, err := h.Service.GetUserBookings(uint(currentUserID))
 	if err != nil {
 		h.Logger.Errorf("Error getting user bookings: %v", err)
 		resp.InternalServerError(err.Error())

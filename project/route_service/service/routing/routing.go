@@ -105,11 +105,11 @@ func (r *routing) GetRoutes() ([]model.Route, error) {
 }
 
 func (r *routing) SearchRoutes(from, to, dateStr string) ([]model.Route, error) {
-	date, err := time.Parse("2006-01-02", dateStr)
-	if err != nil {
-		return nil, fmt.Errorf("invalid date format: %w", err)
-	}
-	return r.repo.SearchRoutes(from, to, date)
+	//date, err := time.Parse("2006-01-02", dateStr)
+	//if err != nil {
+	//	return nil, fmt.Errorf("invalid date format: %w", err)
+	//}
+	return r.repo.SearchRoutes(from, to)
 }
 
 func (r *routing) validateRoute(route *model.Route) error {
