@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-app
+  namespace: m
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: booking-app
+  template:
+    metadata:
+      labels:
+        app: booking-app
+    spec:
+      containers:
+        - name: app
+          image: nislovskaya/booking-app:latest
+          ports:
+            - containerPort: 8083
+          envFrom:
+            - configMapRef:
+                name: booking-app-config
+            - secretRef:
+                name: booking-db-secret
+          livenessProbe:
+            httpGet:
+              path: /booking/health
+              port: 8083
+          readinessProbe:
+            httpGet:
+              path: /booking/health
+              port: 8083

@@ -1,0 +1,121 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: auth-db-migration
+  namespace: m
+spec:
+  template:
+    spec:
+      containers:
+        - name: migrator
+          image: postgres:latest
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - |
+              psql postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME -f /migrations/dump.sql
+          envFrom:
+            - configMapRef:
+                name: auth-app-config
+            - secretRef:
+                name: auth-db-secret
+          volumeMounts:
+            - name: migrations-volume
+              mountPath: /migrations
+      volumes:
+        - name: migrations-volume
+          configMap:
+            name: auth-migrations-config
+      restartPolicy: OnFailure
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: user-db-migration
+  namespace: m
+spec:
+  template:
+    spec:
+      containers:
+        - name: migrator
+          image: postgres:latest
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - |
+              psql postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME -f /migrations/dump.sql
+          envFrom:
+            - configMapRef:
+                name: user-app-config
+            - secretRef:
+                name: user-db-secret
+          volumeMounts:
+            - name: migrations-volume
+              mountPath: /migrations
+      volumes:
+        - name: migrations-volume
+          configMap:
+            name: user-migrations-config
+      restartPolicy: OnFailure
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: route-db-migration
+  namespace: m
+spec:
+  template:
+    spec:
+      containers:
+        - name: migrator
+          image: postgres:latest
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - |
+              psql postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME -f /migrations/dump.sql
+          envFrom:
+            - configMapRef:
+                name: route-app-config
+            - secretRef:
+                name: route-db-secret
+          volumeMounts:
+            - name: migrations-volume
+              mountPath: /migrations
+      volumes:
+        - name: migrations-volume
+          configMap:
+            name: route-migrations-config
+      restartPolicy: OnFailure
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: booking-db-migration
+  namespace: m
+spec:
+  template:
+    spec:
+      containers:
+        - name: migrator
+          image: postgres:latest
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - |
+              psql postgresql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME -f /migrations/dump.sql
+          envFrom:
+            - configMapRef:
+                name: booking-app-config
+            - secretRef:
+                name: booking-db-secret
+          volumeMounts:
+            - name: migrations-volume
+              mountPath: /migrations
+      volumes:
+        - name: migrations-volume
+          configMap:
+            name: booking-migrations-config
+      restartPolicy: OnFailure

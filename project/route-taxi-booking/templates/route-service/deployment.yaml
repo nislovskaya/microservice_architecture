@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: route-app
+  namespace: m
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: route-app
+  template:
+    metadata:
+      labels:
+        app: route-app
+    spec:
+      containers:
+        - name: app
+          image: nislovskaya/route-app:latest
+          ports:
+            - containerPort: 8083
+          envFrom:
+            - configMapRef:
+                name: route-app-config
+            - secretRef:
+                name: route-db-secret
+          livenessProbe:
+            httpGet:
+              path: /route/health
+              port: 8082
+          readinessProbe:
+            httpGet:
+              path: /route/health
+              port: 8082
