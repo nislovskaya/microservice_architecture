@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
 	"github.com/nislovskaya/microservice_architecture/project/booking_service/kafka"
 	"github.com/nislovskaya/microservice_architecture/project/booking_service/model"
 	"github.com/nislovskaya/microservice_architecture/project/booking_service/repository"
@@ -17,6 +18,7 @@ type Service interface {
 	GetUserBookings(userID uint) ([]model.Booking, error)
 	CancelBooking(id uint) error
 	ConfirmBooking(id uint) error
+	StartConsumer(ctx context.Context)
 }
 
 type booking struct {
@@ -164,18 +166,12 @@ func (b *booking) handleRouteUpdated(event model.RouteEvent) error {
 
 func (b *booking) cancelExcessBookings(bookings []model.Booking, capacity int) error {
 	totalSeats := 0
-	for _, booking := range bookings {
-		if booking.Status == "pending" {
-			booking.Status = "cancelled"
-			if err := b.repo.UpdateBooking(&booking); err != nil {
-				b.logger.Errorf("Failed to cancel booking %d: %v", booking.ID, err)
-			}
-		} else if booking.Status == "confirmed" {
-			totalSeats += booking.Seats
+	for i := len(bookings) - 1; i >= 0; i-- {
+		if bookings[i].Status != "cancelled" {
+			totalSeats += bookings[i].Seats
 			if totalSeats > capacity {
-				booking.Status = "cancelled"
-				if err := b.repo.UpdateBooking(&booking); err != nil {
-					b.logger.Errorf("Failed to cancel booking %d: %v", booking.ID, err)
+				if err := b.CancelBooking(bookings[i].ID); err != nil {
+					b.logger.Errorf("Failed to cancel booking %d: %v", bookings[i].ID, err)
 				}
 			}
 		}
